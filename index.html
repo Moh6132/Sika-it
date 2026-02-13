@@ -3,166 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sika IT - شركة رائدة في حلول البيانات، التحليل الإحصائي، وتدريب الخريجين.">
-    <title>Sika IT | حلول البيانات المتقدمة</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Sika IT - شريكك الذكي في تحليل البيانات وتطوير المواهب">
+    <title>Sika IT | شركة سيكا لتقنية المعلومات</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* المتغيرات والألوان */
         :root {
-            --primary: #3b82f6; /* أزرق تقني */
-            --secondary: #10b981; /* أخضر للنمو والنجاح */
-            --dark: #0f172a;
-            --light: #f8fafc;
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary: #3b82f6; /* أزرق */
+            --accent: #10b981; /* أخضر */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--dark); color: #cbd5e1; line-height: 1.6; }
-        
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 20%);
+        }
+
         /* الهيدر */
-        header { background: rgba(30, 41, 59, 0.95); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #334155; backdrop-filter: blur(10px); }
-        .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary); text-decoration: none; }
-        .nav-links a { color: #fff; text-decoration: none; margin-right: 20px; font-size: 0.95rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
-        
-        /* القسم الرئيسي */
-        .hero { 
-            padding: 100px 20px; text-align: center; 
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920'); 
-            background-size: cover; background-attachment: fixed;
-        }
-        h1 { font-size: 3rem; margin-bottom: 10px; color: #fff; }
-        h2 { color: var(--primary); margin-top: 0; }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin: 20px auto; color: #94a3b8; }
-        
-        /* الأزرار */
-        .btn { padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; display: inline-block; margin: 10px; }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
-        .btn-secondary { background: var(--secondary); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
-        .btn:hover { transform: translateY(-3px); }
-
-        /* الأقسام */
-        .container { max-width: 1100px; margin: auto; padding: 60px 20px; }
-        .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h3 { font-size: 2rem; color: #fff; margin-bottom: 10px; }
-        .section-title p { color: #64748b; }
-
-        /* الخدمات */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: #1e293b; padding: 30px; border-radius: 15px; border: 1px solid #334155; transition: 0.3s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
-        .card h4 { color: #fff; font-size: 1.3rem; margin: 10px 0; }
-
-        /* قسم الخريجين */
-        .grad-section { background: linear-gradient(to right, #0f172a, #1e293b); border-radius: 20px; padding: 50px; border: 1px solid #334155; position: relative; overflow: hidden; }
-        .grad-section::before { content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 5px; background: linear-gradient(to right, var(--primary), var(--secondary)); }
-
-        /* الفوتر */
-        footer { background: #020617; text-align: center; padding: 40px 20px; border-top: 1px solid #1e293b; margin-top: 50px; }
-        .social-icons a { color: #94a3b8; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; }
-        .social-icons a:hover { color: #fff; }
-
-        /* واتساب العائم */
-        .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white;
-            width: 60px; height: 60px; border-radius: 50%; text-align: center; font-size: 30px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; justify-content: center;
-            text-decoration: none; transition: 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); background-color: #20ba5a; }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .nav-links { display: none; } /* يمكن إضافة قائمة منسدلة لاحقاً */
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <a href="#" class="logo">Sika IT</a>
-    <nav class="nav-links">
-        <a href="#services">خدمات الشركات</a>
-        <a href="#graduates">للخريجين</a>
-        <a href="#contact">تواصل معنا</a>
-    </nav>
-    <a href="#contact" class="btn btn-primary" style="padding: 8px 20px; margin: 0; font-size: 0.9rem;">اتصل بنا</a>
-</header>
-
-<div class="hero">
-    <h1>البيانات هي نفط المستقبل</h1>
-    <h2>نحن نساعدك على استخراجه وتكريره</h2>
-    <p>شركة Sika IT تقدم حلولاً متكاملة في جمع وتحليل البيانات عن بُعد، وتصميم لوحات القيادة التفاعلية (Dashboards) لدعم صناع القرار.</p>
-    <br>
-    <a href="#services" class="btn btn-primary">اكتشف خدماتنا</a>
-    <a href="#graduates" class="btn btn-secondary">للخريجين: انضم إلينا</a>
-</div>
-
-<div id="services" class="container">
-    <div class="section-title">
-        <h3>ماذا نقدم للشركات؟</h3>
-        <p>حلول ذكية تعتمد على البيانات لدعم نمو أعمالك</p>
-    </div>
-    <div class="grid">
-        <div class="card">
-            <i class="fas fa-chart-line"></i>
-            <h4>تحليل البيانات المتقدم</h4>
-            <p>نحول الأرقام الجامدة إلى رؤى استراتيجية واضحة باستخدام أحدث أدوات التحليل الإحصائي.</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-globe"></i>
-            <h4>جمع البيانات عن بُعد</h4>
-            <p>تصميم وإدارة استبيانات إلكترونية ذكية لجمع البيانات من الميدان بدقة عالية وسرعة فائقة.</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-desktop"></i>
-            <h4>تصوير البيانات (Visualization)</h4>
-            <p>بناء لوحات قيادة تفاعلية (Dashboards) عبر Power BI و Excel تمكنك من مراقبة أداء شركتك لحظياً.</p>
-        </div>
-    </div>
-</div>
-
-<div id="graduates" class="container">
-    <div class="grad-section">
-        <div class="section-title">
-            <h3>أكاديمية ومجتمع Sika IT</h3>
-            <p style="color: #cbd5e1;">هل أنت خريج جديد وتبحث عن فرصة حقيقية؟</p>
-        </div>
-        <div class="grid" style="text-align: center;">
-            <div>
-                <i class="fas fa-graduation-cap" style="color: var(--secondary); font-size: 2rem; margin-bottom: 10px;"></i>
-                <h4>تدريب عملي</h4>
-                <p>لا نكتفي بالنظريات، نعمل على مشاريع حقيقية.</p>
-            </div>
-            <div>
-                <i class="fas fa-briefcase" style="color: var(--secondary); font-size: 2rem; margin-bottom: 10px;"></i>
-                <h4>فرص توظيف</h4>
-                <p>المتميزون ينضمون لفريقنا كمحللين مستقلين.</p>
-            </div>
-            <div>
-                <i class="fas fa-users" style="color: var(--secondary); font-size: 2rem; margin-bottom: 10px;"></i>
-                <h4>مجتمع مهني</h4>
-                <p>كن جزءاً من شبكة محللي البيانات في السودان.</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="#" class="btn btn-secondary">سجل بياناتك الآن (Google Form)</a>
-        </div>
-    </div>
-</div>
-
-<footer id="contact">
-    <h3>Sika IT</h3>
-    <p>أم درمان، الخرطوم، السودان</p>
-    <p>Email: info@sika-it.com</p>
-    <div class="social-icons">
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-    </div>
-    <p style="margin-top: 20px; font-size: 0.8rem; color: #475569;">&copy; 2026 Sika IT. جميع الحقوق محفوظة.</p>
-</footer>
-
-<a href="https://wa.me/249XXXXXXXXX" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-</body>
-</html>
+        header {
+            background: rgba(15, 23, 42, 0
