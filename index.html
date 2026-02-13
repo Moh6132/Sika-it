@@ -3,113 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sika IT | حلول البيانات</title>
+    <meta name="description" content="Sika IT - الحل الأمثل لتحليل البيانات وبناء لوحات القيادة">
+    <title>Sika IT | شركة سيكا لتقنية المعلومات</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* إعدادات الألوان الأساسية */
-        :root {
-            --bg-color: #0f172a;
-            --primary: #3b82f6;
-            --accent: #10b981;
-            --text-white: #ffffff;
-            --glass: rgba(30, 41, 59, 0.7);
-        }
+</head>
+<body>
 
-        /* تنسيق الصفحة العام */
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-white); /* إجبار النص على اللون الأبيض */
-            margin: 0;
-            overflow-x: hidden;
-            background-image: linear-gradient(rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9)), url('https://www.transparenttextures.com/patterns/cubes.png');
-        }
+    <header>
+        <a href="#" class="logo">Sika <span>IT</span></a>
+        <nav class="nav-links">
+            <a href="#why-us">لماذا نحن</a>
+            <a href="#portfolio">أعمالنا</a>
+            <a href="#pricing">الأسعار</a>
+        </nav>
+        <a href="#contact" class="btn-header">اتصل بنا</a>
+    </header>
 
-        /* الهيدر */
-        header {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
-        .logo span { color: var(--primary); }
-        
-        .btn-nav {
-            background: var(--primary); color: white; padding: 8px 20px; 
-            border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem;
-        }
+    <div class="hero">
+        <h1>حول بياناتك إلى قرارات<br><span style="color: var(--primary);">استراتيجية ومربحة</span></h1>
+        <p>نحن شريكك التقني لتحليل البيانات، بناء لوحات القيادة (Dashboards)، وأتمتة التقارير عن بعد.</p>
+        <div>
+            <a href="#pricing" class="btn btn-primary">شاهد الباقات والعروض</a>
+            <a href="#portfolio" class="btn btn-outline">أعمالنا</a>
+        </div>
+    </div>
 
-        /* القسم الرئيسي Hero */
-        .hero {
-            padding: 120px 20px 80px;
-            text-align: center;
-            max-width: 900px;
-            margin: auto;
-        }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.4; }
-        .hero p { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 40px; }
+    <div id="why-us" class="container">
+        <div class="section-title">
+            <h2>لماذا تختار <span>Sika IT</span>؟</h2>
+            <p>لسنا مجرد شركة تحليل بيانات، نحن شركاء نجاحك</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fas fa-rocket fa-2x" style="color: var(--primary); margin-bottom: 20px;"></i>
+                <h3>سرعة التنفيذ</h3>
+                <p>نستخدم أحدث أدوات الأتمتة لنسلمك تقارير دقيقة في وقت قياسي، مما يتيح لك اتخاذ القرار فوراً.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-chart-pie fa-2x" style="color: var(--accent); margin-bottom: 20px;"></i>
+                <h3>دقة وتحليل عميق</h3>
+                <p>لا نكتفي بالأرقام السطحية، بل نغوص في البيانات لنستخرج لك فرصاً مخفية لزيادة الأرباح.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-wallet fa-2x" style="color: #f59e0b; margin-bottom: 20px;"></i>
+                <h3>تكلفة تنافسية</h3>
+                <p>بفضل عملنا "عن بعد" بالكامل، نقدم لك خدمات احترافية بأسعار أقل بكثير من الشركات التقليدية.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-lock fa-2x" style="color: #ef4444; margin-bottom: 20px;"></i>
+                <h3>أمان وخصوصية</h3>
+                <p>نوقع اتفاقيات عدم إفشاء (NDA) لضمان أن بياناتك التجارية سرية ومحمية بنسبة 100%.</p>
+            </div>
+        </div>
+    </div>
 
-        /* الأزرار الـ 3D */
-        .btn {
-            padding: 15px 40px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            transition: 0.2s;
-            position: relative;
-            top: 0;
-            margin: 10px;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 5px 0 #1d4ed8; /* الظل السفلي */
-        }
-        .btn-primary:active { top: 5px; box-shadow: none; }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            box-shadow: 0 5px 0 #047857;
-        }
-        .btn-outline:active { top: 5px; box-shadow: none; }
+    <div id="portfolio" class="container">
+        <div class="section-title">
+            <h2>نماذج من <span>أعمالنا</span></h2>
+            <p>داشبوردات تفاعلية تمكنك من رؤية شركتك بوضوح</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="تحليل مالي">
+                <div class="portfolio-info">
+                    <h4>لوحة التحليل المالي</h4>
+                    <p>متابعة الأرباح والمصاريف لحظياً</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="تحليل تسويقي">
+                <div class="portfolio-info">
+                    <h4>تحليل الحملات التسويقية</h4>
+                    <p>قياس العائد على الاستثمار ROI</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=500&q=80" alt="إدارة المخزون">
+                <div class="portfolio-info">
+                    <h4>إدارة المخزون والمبيعات</h4>
+                    <p>تنبؤ بالطلب ومنع نفاذ الكميات</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        /* البطاقات وتأثيرات الـ 3D */
-        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
-        .section-title { text-align: center; margin: 80px 0 50px; font-size: 2.2rem; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    <div id="pricing" class="container">
+        <div class="section-title">
+            <h2>باقات <span>الأسعار</span></h2>
+            <p>اختر الخطة المناسبة لحجم أعمالك</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>تحليل سريع</h3>
+                <div class="price">$100 <span>/ للمشروع</span></div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> تنظيف البيانات (Data Cleaning)</li>
+                    <li><i class="fas fa-check"></i> تقرير PDF من صفحتين</li>
+                    <li><i class="fas fa-check"></i> 3 رسومات بيانية أساسية</li>
+                    <li><i class="fas fa-check"></i> تسليم خلال 48 ساعة</li>
+                </ul>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-outline" style="width:100%">اطلب الآن</a>
+            </div>
 
-        .card-3d {
-            background: var(--glass);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-        }
-        .card-icon { font-size: 2.5rem; color: var(--primary); transform: translateZ(30px); display: inline-block; margin-bottom: 20px; }
-        .card-3d h3 { font-size: 1.5rem; transform: translateZ(20px); margin-bottom: 10px; }
-        .card-3d p { color: #94a3b8; transform: translateZ(10px); }
+            <div class="pricing-card featured">
+                <div style="background: var(--primary); color: white; padding: 5px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 15px; display: inline-block;">الأكثر طلباً</div>
+                <h3>داشبورد تفاعلي</h3>
+                <div class="price">$250 <span>/ للمشروع</span></div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> لوحة قيادة Power BI تفاعلية</li>
+                    <li><i class="fas fa-check"></i> ربط بمصدر البيانات (Excel/Google Sheets)</li>
+                    <li><i class="fas fa-check"></i> تحليل عميق للأداء</li>
+                    <li><i class="fas fa-check"></i> دعم فني لمدة أسبوع</li>
+                </ul>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-primary" style="width:100%">اطلب الآن</a>
+            </div>
 
-        /* الأسعار */
-        .pricing-card { text-align: center; border-top: 4px solid var(--accent); position: relative; }
-        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; }
-        .features-list { list-style: none; padding: 0; text-align: right; margin: 20px 0; }
-        .features-list li { margin-bottom: 10px; color: #cbd5e1; }
-        .features-list i { color: var(--accent); margin-left: 10px; }
+            <div class="pricing-card">
+                <h3>حلول الشركات</h3>
+                <div class="price">مخصص <span></span></div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> نظام أتمتة متكامل</li>
+                    <li><i class="fas fa-check"></i> جمع بيانات ميداني عن بعد</li>
+                    <li><i class="fas fa-check"></i> سيرفرات خاصة (SQL Database)</li>
+                    <li><i class="fas fa-check"></i> عقود صيانة شهرية</li>
+                </ul>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-outline" style="width:100%">تواصل معنا</a>
+            </div>
+        </div>
+    </div>
 
-        /* الفوتر */
-        footer { margin-top: 100px; padding: 40px;
+    <footer id="contact">
+        <h3>Sika IT</h3>
+        <p>الخرطوم، السودان | info@sika-it.com</p>
+        <div class="social-icons" style="margin-top: 20px;">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">&copy; 2026 جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <a href="https://wa.me/249XXXXXXXXX" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
