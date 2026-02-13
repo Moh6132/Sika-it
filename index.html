@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sika IT - الحل الأمثل لتحليل البيانات وبناء لوحات القيادة">
-    <title>Sika IT | شركة سيكا لتقنية المعلومات</title>
+    <title>Sika IT | حلول البيانات</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* إعدادات الألوان الأساسية */
         :root {
             --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --primary: #3b82f6;       
-            --primary-dark: #2563eb;
-            --accent: #10b981;        
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
+            --primary: #3b82f6;
+            --accent: #10b981;
+            --text-white: #ffffff;
+            --glass: rgba(30, 41, 59, 0.7);
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-
+        /* تنسيق الصفحة العام */
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
+            color: var(--text-white); /* إجبار النص على اللون الأبيض */
             margin: 0;
-            padding: 0;
             overflow-x: hidden;
-            line-height: 1.6;
-            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%);
+            background-image: linear-gradient(rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9)), url('https://www.transparenttextures.com/patterns/cubes.png');
         }
 
-        /* --- الهيدر --- */
+        /* الهيدر */
         header {
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
             padding: 15px 5%;
             position: sticky;
             top: 0;
@@ -44,38 +39,77 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
         .logo span { color: var(--primary); }
-
-        .nav-links a { 
-            color: #fff; text-decoration: none; margin-left: 25px; font-weight: 600; font-size: 0.95rem; transition: 0.3s;
+        
+        .btn-nav {
+            background: var(--primary); color: white; padding: 8px 20px; 
+            border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem;
         }
-        .nav-links a:hover { color: var(--primary); }
 
-        .btn-header {
-            background: var(--primary); color: white; padding: 8px 25px; border-radius: 50px;
-            text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: 0.3s;
-        }
-        .btn-header:hover { background: var(--primary-dark); }
-
-        /* --- الواجهة الرئيسية (Hero) --- */
+        /* القسم الرئيسي Hero */
         .hero {
-            padding: 140px 20px 100px;
+            padding: 120px 20px 80px;
             text-align: center;
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            max-width: 900px;
+            margin: auto;
         }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.4; }
+        .hero p { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 40px; }
 
-        .hero h1 { 
-            font-size: 3.5rem; margin-bottom: 20px; line-height: 1.3; 
-            background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero p { font-size: 1.3rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 40px; }
-
+        /* الأزرار الـ 3D */
         .btn {
-            padding: 14px 40px; border-radius: 50px; text-decoration: none; font
+            padding: 15px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.2s;
+            position: relative;
+            top: 0;
+            margin: 10px;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 0 #1d4ed8; /* الظل السفلي */
+        }
+        .btn-primary:active { top: 5px; box-shadow: none; }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            box-shadow: 0 5px 0 #047857;
+        }
+        .btn-outline:active { top: 5px; box-shadow: none; }
+
+        /* البطاقات وتأثيرات الـ 3D */
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+        .section-title { text-align: center; margin: 80px 0 50px; font-size: 2.2rem; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        .card-3d {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        .card-icon { font-size: 2.5rem; color: var(--primary); transform: translateZ(30px); display: inline-block; margin-bottom: 20px; }
+        .card-3d h3 { font-size: 1.5rem; transform: translateZ(20px); margin-bottom: 10px; }
+        .card-3d p { color: #94a3b8; transform: translateZ(10px); }
+
+        /* الأسعار */
+        .pricing-card { text-align: center; border-top: 4px solid var(--accent); position: relative; }
+        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; }
+        .features-list { list-style: none; padding: 0; text-align: right; margin: 20px 0; }
+        .features-list li { margin-bottom: 10px; color: #cbd5e1; }
+        .features-list i { color: var(--accent); margin-left: 10px; }
+
+        /* الفوتر */
+        footer { margin-top: 100px; padding: 40px;
