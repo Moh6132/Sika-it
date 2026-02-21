@@ -3,162 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sika IT - الحل الأمثل لتحليل البيانات وبناء لوحات القيادة">
-    <title>Sika IT | شركة سيكا لتقنية المعلومات</title>
+    <title>Sika IT | مستقبل البيانات</title>
     
-    <link rel="stylesheet" href="style.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
+            --secondary-gradient: linear-gradient(135deg, #7F00FF, #E100FF);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-light: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: radial-gradient(circle at top right, rgba(127, 0, 255, 0.2), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(0, 198, 255, 0.2), transparent 40%), #0a0e17;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* --- الهيدر المتغير --- */
+        header {
+            padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease; /* حركة ناعمة عند التغيير */
+        }
+        header.scrolled {
+            background: rgba(10, 14, 23, 0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 5%;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .btn-nav {
+            background: var(--primary-gradient); color: white; padding: 10px 25px; 
+            border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .btn-nav:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 114, 255, 0.5); }
+
+        /* --- القسم الرئيسي والكتابة التلقائية --- */
+        .hero { padding: 180px 20px 100px; text-align: center; position: relative; }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; line-height: 1.3; font-weight: 900; }
+        
+        /* مؤشر الكتابة */
+        .typed-text { background: var(--secondary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cursor { display: inline-block; width: 4px; background-color: #00c6ff; margin-right: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .hero p { font-size: 1.3rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 40px; }
+        .btn { padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: 0.3s; display: inline-block; margin: 10px; }
+        .btn-primary { background: var(--primary-gradient); color: white; border: none; }
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(127, 0, 255, 0.4); }
+        .btn-outline { background: transparent; color: white; border: 2px solid #00c6ff; }
+        .btn-outline:hover { background: var(--primary-gradient); transform: translateY(-5px); }
+
+        /* --- كلاس الظهور السلس (Scroll Reveal) --- */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- الأقسام --- */
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+        .section-title { text-align: center; margin: 100px 0 60px; font-size: 2.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .card { border-radius: 25px; padding: 40px; transition: 0.4s; }
+        .card:hover { transform: translateY(-15px); border-color: rgba(255,255,255,0.3); }
+        .card-icon { font-size: 3.5rem; margin-bottom: 25px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* --- العدادات (Counters) --- */
+        .stats-section { margin-top: 100px; }
+        .stat-card { text-align: center; }
+        .stat-number { font-size: 4rem; font-weight: 900; color: #00c6ff; display: inline-block; }
+        .stat-plus { font-size: 3rem; color: #E100FF; font-weight: bold; }
+        .stat-title { font-size: 1.2rem; color: #a0aec0; margin-top: 10px; }
+
+        /* الفوتر والأسعار */
+        .pricing-card { text-align: center; }
+        .price { font-size: 3.5rem; font-weight: 900; margin: 25px 0; }
+        .features-list { list-style: none; padding: 0; text-align: right; margin: 30px 0; }
+        .features-list li { margin-bottom: 15px; font-size: 1.1rem; }
+        .features-list i { color: #00c6ff; margin-left: 15px; }
+        footer { margin-top: 150px; padding: 60px; text-align: center; border-radius: 30px 30px 0 0; }
+        .whatsapp-float { position: fixed; bottom: 40px; right: 40px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); z-index: 100; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
+    </style>
 </head>
 <body>
 
-   <header class="glass">
-    <a href="#" class="logo">Sika IT</a>
-    <a href="#contact" class="btn-nav">ابدأ مشروعك</a>
-</header>
+    <header class="glass" id="main-header">
+        <a href="#" class="logo">Sika IT</a>
+        <a href="#contact" class="btn-nav">ابدأ مشروعك</a>
+    </header>
 
-    <div class="hero">
-        <h1>حول بياناتك إلى قرارات<br><span style="color: var(--primary);">استراتيجية ومربحة</span></h1>
-        <p>نحن شريكك التقني لتحليل البيانات، بناء لوحات القيادة (Dashboards)، وأتمتة التقارير عن بعد.</p>
+    <div class="hero reveal active">
+        <h1>اكتشف القوة الخفية <br> في <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
+        <p>نحن لا نقدم مجرد تقارير؛ نحن نصمم تجارب بصرية تفاعلية تحول الأرقام المعقدة إلى قرارات استراتيجية واضحة، باستخدام أحدث تقنيات الذكاء الاصطناعي وتحليل البيانات.</p>
         <div>
-            <a href="#pricing" class="btn btn-primary">شاهد الباقات والعروض</a>
-            <a href="#portfolio" class="btn btn-outline">أعمالنا</a>
+            <a href="#pricing" class="btn btn-primary">شاهد الباقات</a>
+            <a href="#why-us" class="btn btn-outline">لماذا نحن؟</a>
         </div>
     </div>
 
-    <div id="why-us" class="container">
-        <div class="section-title">
-            <h2>لماذا تختار <span>Sika IT</span>؟</h2>
-            <p>لسنا مجرد شركة تحليل بيانات، نحن شركاء نجاحك</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-box">
-                <i class="fas fa-rocket fa-2x" style="color: var(--primary); margin-bottom: 20px;"></i>
-                <h3>سرعة التنفيذ</h3>
-                <p>نستخدم أحدث أدوات الأتمتة لنسلمك تقارير دقيقة في وقت قياسي، مما يتيح لك اتخاذ القرار فوراً.</p>
+    <div class="container stats-section reveal" id="stats">
+        <div class="grid">
+            <div class="card glass stat-card">
+                <div class="stat-number" data-target="150">0</div><span class="stat-plus">+</span>
+                <div class="stat-title">مشروع مكتمل</div>
             </div>
-            <div class="feature-box">
-                <i class="fas fa-chart-pie fa-2x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                <h3>دقة وتحليل عميق</h3>
-                <p>لا نكتفي بالأرقام السطحية، بل نغوص في البيانات لنستخرج لك فرصاً مخفية لزيادة الأرباح.</p>
+            <div class="card glass stat-card">
+                <div class="stat-number" data-target="85">0</div><span class="stat-plus">+</span>
+                <div class="stat-title">داشبورد تفاعلي</div>
             </div>
-            <div class="feature-box">
-                <i class="fas fa-wallet fa-2x" style="color: #f59e0b; margin-bottom: 20px;"></i>
-                <h3>تكلفة تنافسية</h3>
-                <p>بفضل عملنا "عن بعد" بالكامل، نقدم لك خدمات احترافية بأسعار أقل بكثير من الشركات التقليدية.</p>
-            </div>
-            <div class="feature-box">
-                <i class="fas fa-lock fa-2x" style="color: #ef4444; margin-bottom: 20px;"></i>
-                <h3>أمان وخصوصية</h3>
-                <p>نوقع اتفاقيات عدم إفشاء (NDA) لضمان أن بياناتك التجارية سرية ومحمية بنسبة 100%.</p>
+            <div class="card glass stat-card">
+                <div class="stat-number" data-target="99">0</div><span class="stat-plus">%</span>
+                <div class="stat-title">دقة تحليل البيانات</div>
             </div>
         </div>
     </div>
 
-    <div id="portfolio" class="container">
-        <div class="section-title">
-            <h2>نماذج من <span>أعمالنا</span></h2>
-            <p>داشبوردات تفاعلية تمكنك من رؤية شركتك بوضوح</p>
-        </div>
-        <div class="portfolio-grid">
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="تحليل مالي">
-                <div class="portfolio-info">
-                    <h4>لوحة التحليل المالي</h4>
-                    <p>متابعة الأرباح والمصاريف لحظياً</p>
-                </div>
+    <div id="why-us" class="container reveal">
+        <h2 class="section-title">لماذا Sika IT؟</h2>
+        <div class="grid">
+            <div class="card glass">
+                <div class="card-icon"><i class="fas fa-brain"></i></div>
+                <h3>ذكاء تحليلي متقدم</h3>
+                <p>نستخدم خوارزميات متطورة للكشف عن الأنماط المخفية في بياناتك التي لا يمكن للطرق التقليدية رؤيتها.</p>
             </div>
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="تحليل تسويقي">
-                <div class="portfolio-info">
-                    <h4>تحليل الحملات التسويقية</h4>
-                    <p>قياس العائد على الاستثمار ROI</p>
-                </div>
+            <div class="card glass">
+                <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <h3>داشبورد تفاعلي حي</h3>
+                <p>لوحات قيادة ديناميكية تتحدث لحظياً، تمنحك السيطرة الكاملة على مؤشرات الأداء من أي مكان.</p>
             </div>
-            <div class="portfolio-item">
-                <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=500&q=80" alt="إدارة المخزون">
-                <div class="portfolio-info">
-                    <h4>إدارة المخزون والمبيعات</h4>
-                    <p>تنبؤ بالطلب ومنع نفاذ الكميات</p>
-                </div>
+            <div class="card glass">
+                <div class="card-icon"><i class="fas fa-fingerprint"></i></div>
+                <h3>حلول مفصلة لك</h3>
+                <p>لا نؤمن بالحلول الجاهزة. ندرس احتياجاتك بدقة لنبني نظام بيانات مصمم خصيصاً لأهدافك.</p>
             </div>
         </div>
     </div>
 
-    <div id="pricing" class="container">
-        <div class="section-title">
-            <h2>باقات <span>الأسعار</span></h2>
-            <p>اختر الخطة المناسبة لحجم أعمالك</p>
-        </div>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>تحليل سريع</h3>
-                <div class="price">$100 <span>/ للمشروع</span></div>
+    <div id="pricing" class="container reveal">
+        <h2 class="section-title">باقات الاستثمار</h2>
+        <div class="grid">
+            <div class="card glass pricing-card">
+                <h3>الأساسية (Starter)</h3>
+                <div class="price">$150</div>
                 <ul class="features-list">
-                    <li><i class="fas fa-check"></i> تنظيف البيانات (Data Cleaning)</li>
-                    <li><i class="fas fa-check"></i> تقرير PDF من صفحتين</li>
-                    <li><i class="fas fa-check"></i> 3 رسومات بيانية أساسية</li>
-                    <li><i class="fas fa-check"></i> تسليم خلال 48 ساعة</li>
+                    <li><i class="fas fa-check-circle"></i> تنظيف وتنظيم البيانات</li>
+                    <li><i class="fas fa-check-circle"></i> تقرير PDF احترافي</li>
+                    <li><i class="fas fa-check-circle"></i> 5 رسومات بيانية أساسية</li>
                 </ul>
-                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-outline" style="width:100%">اطلب الآن</a>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-outline" style="width:100%; margin-top: 20px;">اطلب الآن</a>
             </div>
-
-            <div class="pricing-card featured">
-                <div style="background: var(--primary); color: white; padding: 5px; border-radius: 5px; font-size: 0.8rem; margin-bottom: 15px; display: inline-block;">الأكثر طلباً</div>
-                <h3>داشبورد تفاعلي</h3>
-                <div class="price">$250 <span>/ للمشروع</span></div>
+            
+            <div class="card glass pricing-card" style="border: 2px solid #E100FF; transform: scale(1.05);">
+                <div style="background: var(--secondary-gradient); padding: 5px 20px; border-radius: 20px; display: inline-block; margin-bottom: 10px; font-weight: bold;">الأكثر طلباً 🔥</div>
+                <h3>الاحترافية (Pro)</h3>
+                <div class="price">$350</div>
                 <ul class="features-list">
-                    <li><i class="fas fa-check"></i> لوحة قيادة Power BI تفاعلية</li>
-                    <li><i class="fas fa-check"></i> ربط بمصدر البيانات (Excel/Google Sheets)</li>
-                    <li><i class="fas fa-check"></i> تحليل عميق للأداء</li>
-                    <li><i class="fas fa-check"></i> دعم فني لمدة أسبوع</li>
+                    <li><i class="fas fa-check-circle"></i> داشبورد Power BI تفاعلي</li>
+                    <li><i class="fas fa-check-circle"></i> ربط مباشر بمصادر البيانات</li>
+                    <li><i class="fas fa-check-circle"></i> جلسة استشارية للنتائج</li>
                 </ul>
-                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-primary" style="width:100%">اطلب الآن</a>
-            </div>
-
-            <div class="pricing-card">
-                <h3>حلول الشركات</h3>
-                <div class="price">مخصص <span></span></div>
-                <ul class="features-list">
-                    <li><i class="fas fa-check"></i> نظام أتمتة متكامل</li>
-                    <li><i class="fas fa-check"></i> جمع بيانات ميداني عن بعد</li>
-                    <li><i class="fas fa-check"></i> سيرفرات خاصة (SQL Database)</li>
-                    <li><i class="fas fa-check"></i> عقود صيانة شهرية</li>
-                </ul>
-                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-outline" style="width:100%">تواصل معنا</a>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn btn-primary" style="width:100%; margin-top: 20px;">ابدأ التحول الرقمي</a>
             </div>
         </div>
     </div>
 
-    <footer id="contact">
-        <h3>Sika IT</h3>
-        <p>الخرطوم، السودان | info@sika-it.com</p>
-        <div class="social-icons" style="margin-top: 20px;">
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">&copy; 2026 جميع الحقوق محفوظة.</p>
+    <footer class="glass" id="contact">
+        <h2 class="logo" style="font-size: 2.5rem; margin-bottom: 20px;">Sika IT</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">شريكك الاستراتيجي في عصر البيانات.</p>
+        <p style="margin-top: 50px; opacity: 0.6; font-size: 0.9rem;">&copy; 2026 Sika IT. تم التطوير بشغف في السودان.</p>
     </footer>
 
     <a href="https://wa.me/249XXXXXXXXX" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
     <script>
-        // تأثير تغيير لون الهيدر عند النزول في الصفحة
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
+        // 1. تغيير شكل الهيدر عند النزول (Sticky Header)
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
             if (window.scrollY > 50) {
-                // عندما ينزل المستخدم، نجعل الهيدر داكناً أكثر
-                header.style.background = 'rgba(10, 14, 23, 0.95)';
-                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+                header.classList.add('scrolled');
             } else {
-                // عند العودة للأعلى، يعود للونه الزجاجي الشفاف
-                header.style.background = 'rgba(255, 255, 255, 0.05)';
-                header.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.37)';
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. الظهور السلس للعناصر (Scroll Reveal)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // 3. تأثير الكتابة التلقائية (Typing Effect)
+        const textArray = ["بياناتك.", "أرقامك.", "تقاريرك.", "شركتك."];
+        const typingDelay = 150;
+        const erasingDelay = 100;
+        const newTextDelay = 2000;
+        let textArrayIndex = 0;
+        let charIndex = 0;
+        const typedTextSpan = document.querySelector(".typed-text");
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else {
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                textArrayIndex++;
+                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, typingDelay + 500);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            if(textArray.length) setTimeout(type, newTextDelay + 250);
+        });
+
+        // 4. عداد الأرقام التفاعلي (Number Counter)
+        const counters = document.querySelectorAll('.stat-number');
+        let started = false;
+
+        window.addEventListener('scroll', () => {
+            const statsSection = document.getElementById('stats');
+            const sectionPos = statsSection.getBoundingClientRect().top;
+            const screenPos = window.innerHeight / 1.2;
+
+            if(sectionPos < screenPos && !started) {
+                counters.forEach(counter => {
+                    counter.innerText = '0';
+                    const updateCounter = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const c = +counter.innerText;
+                        const increment = target / 100; // سرعة العداد
+
+                        if(c < target) {
+                            counter.innerText = `${Math.ceil(c + increment)}`;
+                            setTimeout(updateCounter, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                });
+                started = true;
             }
         });
     </script>
-
 </body>
 </html>
