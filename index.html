@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sika IT | مستقبل البيانات</title>
+    <title>Sika IT | حلول البيانات</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,10 +25,259 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* ========================================= */
-        /* 1. الخلفية المتحركة (Animated Background)  */
-        /* ========================================= */
-        .
+        /* --- 1. الخلفية المتحركة (الطبقة السفلية) --- */
+        .animated-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0; /* تم التعديل لضمان عدم حجب المحتوى */
+            overflow: hidden; background: #0a0e17;
+        }
+        .blob {
+            position: absolute; filter: blur(90px); border-radius: 50%;
+            animation: moveBlobs 15s infinite alternate ease-in-out;
+            opacity: 0.5;
+        }
+        .blob-1 { width: 400px; height: 400px; background: #0072ff; top: -10%; left: -10%; }
+        .blob-2 { width: 500px; height: 500px; background: #7F00FF; bottom: -20%; right: -10%; animation-delay: 2s; }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 150px) scale(1.2); }
+        }
+
+        /* --- المحتوى الرئيسي (الطبقة العلوية) --- */
+        .main-content {
+            position: relative;
+            z-index: 10; /* هذه الطبقة ستكون دائماً فوق الخلفية */
+        }
+
+        /* --- تصميم الزجاج العام --- */
+        .glass {
+            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- الهيدر --- */
+        header {
+            padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
+        }
+        header.scrolled {
+            background: rgba(10, 14, 23, 0.95); box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--glass-border); padding: 10px 5%;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .btn-nav {
+            background: var(--primary-gradient); color: white; padding: 10px 25px; 
+            border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+        }
+        .btn-nav:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 114, 255, 0.5); }
+
+        /* --- الواجهة (Hero) --- */
+        .hero { 
+            padding: 180px 5% 100px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            flex-wrap: wrap; gap: 40px; max-width: 1400px; margin: auto;
+        }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.3; font-weight: 900; }
+        
+        .typed-text { background: var(--secondary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cursor { display: inline-block; width: 4px; background-color: #00c6ff; margin-right: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .hero p { font-size: 1.2rem; color: #cbd5e1; max-width: 600px; margin: 0 0 40px; line-height: 1.8; }
+        .btn { padding: 12px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; margin-left: 10px; margin-bottom: 10px; }
+        .btn-primary { background: var(--primary-gradient); color: white; border: none; }
+        .btn-outline { background: transparent; color: white; border: 2px solid #00c6ff; }
+
+        /* الصورة المتحركة */
+        .hero-image { flex: 1; min-width: 300px; text-align: center; }
+        .animated-gif { 
+            width: 100%; max-width: 450px; border-radius: 20px;
+            animation: floatImage 4s ease-in-out infinite;
+        }
+        @keyframes floatImage { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+
+        /* --- الأقسام --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+        .section-title { text-align: center; margin: 80px 0 50px; font-size: 2.2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card { border-radius: 20px; padding: 30px; transition: 0.4s; }
+        .card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.3); }
+        .card-icon { font-size: 3rem; margin-bottom: 20px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: floatIcon 3s ease-in-out infinite; display: inline-block; }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* --- العدادات --- */
+        .stats-section { margin-top: 80px; }
+        .stat-card { text-align: center; }
+        .stat-number { font-size: 3.5rem; font-weight: 900; color: #00c6ff; display: inline-block; }
+        .stat-plus { font-size: 2.5rem; color: #E100FF; font-weight: bold; }
+
+        /* الفوتر والأسعار */
+        .pricing-card { text-align: center; }
+        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; }
+        .features-list { list-style: none; padding: 0; text-align: right; margin: 25px 0; }
+        .features-list li { margin-bottom: 15px; }
+        .features-list i { color: #00c6ff; margin-left: 15px; }
+        
+        footer { margin-top: 100px; padding: 50px; text-align: center; border-radius: 30px 30px 0 0; }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 100; transition: 0.3s; }
+
+        @media (max-width: 768px) { .hero { text-align: center; padding-top: 120px; } .hero h1 { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+
+    <div class="animated-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="main-content">
+        <header class="glass" id="main-header">
+            <a href="#" class="logo">Sika IT</a>
+            <a href="#contact" class="btn-nav">اتصل بنا</a>
+        </header>
+
+        <div class="hero reveal active">
+            <div class="hero-text">
+                <h1>اكتشف القوة الخفية <br> في <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
+                <p>نحول الأرقام المعقدة إلى قرارات استراتيجية واضحة ومربحة.</p>
+                <div>
+                    <a href="#pricing" class="btn btn-primary">شاهد الباقات</a>
+                    <a href="#why-us" class="btn btn-outline">لماذا نحن؟</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://i.pinimg.com/originals/e4/c8/10/e4c810427c3d221cd35e468e5cc69cb2.gif" alt="Data Animation GIF" class="animated-gif">
+            </div>
+        </div>
+
+        <div class="container stats-section reveal" id="stats">
+            <div class="grid">
+                <div class="card glass stat-card">
+                    <div class="stat-number" data-target="150">0</div><span class="stat-plus">+</span>
+                    <div style="color: #a0aec0; margin-top:10px;">مشروع مكتمل</div>
+                </div>
+                <div class="card glass stat-card">
+                    <div class="stat-number" data-target="85">0</div><span class="stat-plus">+</span>
+                    <div style="color: #a0aec0; margin-top:10px;">داشبورد تفاعلي</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="why-us" class="container reveal">
+            <h2 class="section-title">لماذا Sika IT؟</h2>
+            <div class="grid">
+                <div class="card glass">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <h3>ذكاء تحليلي</h3>
+                    <p>الكشف عن الأنماط المخفية في بياناتك بدقة متناهية.</p>
+                </div>
+                <div class="card glass">
+                    <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>داشبورد تفاعلي</h3>
+                    <p>لوحات قيادة ديناميكية تتحدث لحظياً لتراقب عملك.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="pricing" class="container reveal">
+            <h2 class="section-title">الباقات</h2>
+            <div class="grid">
+                <div class="card glass pricing-card">
+                    <h3>الأساسية</h3>
+                    <div class="price">$150</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> تنظيف البيانات</li>
+                        <li><i class="fas fa-check-circle"></i> تقرير PDF</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="width:100%;">اطلب الآن</a>
+                </div>
+                
+                <div class="card glass pricing-card" style="border: 2px solid #E100FF; transform: scale(1.05);">
+                    <h3>الاحترافية</h3>
+                    <div class="price">$350</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> داشبورد Power BI</li>
+                        <li><i class="fas fa-check-circle"></i> ربط مباشر للبيانات</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width:100%;">اطلب الآن</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="glass" id="contact">
+            <h2 class="logo" style="font-size: 2.5rem; margin-bottom: 20px;">Sika IT</h2>
+            <p>&copy; 2026 جميع الحقوق محفوظة.</p>
+        </footer>
+    </div>
+
+    <a href="https://wa.me/249XXXXXXXXX" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // تفعيل الظهور فوراً عند تحميل الصفحة (تجنباً للشاشة السوداء)
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        const textArray = ["بياناتك.", "أرقامك.", "شركتك."];
+        let textArrayIndex = 0, charIndex = 0;
+        const typedTextSpan = document.querySelector(".typed-text");
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 150);
+            } else setTimeout(erase, 2000);
+        }
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 100);
+            } else {
+                textArrayIndex++;
+                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, 600);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", () => setTimeout(type, 2000));
+
+        const counters = document.querySelectorAll('.stat-number');
+        let started = false;
+        window.addEventListener('scroll', () => {
+            const statsSection = document.getElementById('stats');
+            if(statsSection && statsSection.getBoundingClientRect().top < window.innerHeight / 1.2 && !started) {
+                counters.forEach(counter => {
+                    counter.innerText = '0';
+                    const updateCounter = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const c = +counter.innerText;
+                        if(c < target) { counter.innerText = `${Math.ceil(c + target/100)}`; setTimeout(updateCounter, 20); }
+                        else counter.innerText = target;
+                    };
+                    updateCounter();
+                });
+                started = true;
+            }
+        });
+    </script>
+</body>
+</html>
