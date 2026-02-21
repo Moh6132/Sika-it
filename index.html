@@ -144,6 +144,21 @@
     <a href="https://wa.me/249XXXXXXXXX" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+    <script>
+        // تأثير تغيير لون الهيدر عند النزول في الصفحة
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                // عندما ينزل المستخدم، نجعل الهيدر داكناً أكثر
+                header.style.background = 'rgba(10, 14, 23, 0.95)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+            } else {
+                // عند العودة للأعلى، يعود للونه الزجاجي الشفاف
+                header.style.background = 'rgba(255, 255, 255, 0.05)';
+                header.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.37)';
+            }
+        });
+    </script>
 
 </body>
 </html>
