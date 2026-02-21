@@ -10,13 +10,13 @@
     
     <style>
         :root {
-            --bg-dark: #0f172a;      /* أزرق داكن (خلفية داشبورد) */
-            --bg-card: #1e293b;      /* لون بطاقات البيانات */
-            --powerbi-yellow: #F2C811; /* أصفر Power BI */
-            --excel-green: #10b981;    /* أخضر إيجابي */
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.8);
+            --powerbi-yellow: #F2C811;
+            --excel-green: #10b981;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-line: #334155;
+            --border-line: rgba(51, 65, 85, 0.5);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -26,19 +26,25 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
-            /* خلفية شبكية (Grid) تشبه جداول البيانات */
             background-image: linear-gradient(var(--border-line) 1px, transparent 1px),
                               linear-gradient(90deg, var(--border-line) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 40px 40px;
             background-position: center top;
         }
 
-        /* --- الهيدر --- */
+        /* --- الهيدر الذكي --- */
         header {
-            background: rgba(15, 23, 42, 0.95);
-            border-bottom: 1px solid var(--border-line);
-            padding: 15px 5%; position: sticky; top: 0; z-index: 1000;
+            background: transparent;
+            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
+        }
+        header.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--powerbi-yellow);
+            padding: 10px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px;}
@@ -49,204 +55,4 @@
             border: 1px solid var(--border-line); border-radius: 5px; 
             text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s;
         }
-        .btn-nav:hover { border-color: var(--powerbi-yellow); color: var(--powerbi-yellow); }
-
-        /* --- الواجهة (Hero) --- */
-        .hero { 
-            padding: 100px 5% 80px; max-width: 1400px; margin: auto;
-            display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
-        }
-        .hero-text { flex: 1; min-width: 320px; }
-        
-        .code-badge {
-            display: inline-block; padding: 5px 15px; background: #000;
-            color: var(--excel-green); border: 1px solid var(--border-line);
-            border-radius: 3px; font-family: monospace; font-size: 1rem; margin-bottom: 20px;
-        }
-
-        .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 20px; }
-        .hero h1 span { color: var(--powerbi-yellow); }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 550px; margin-bottom: 40px; line-height: 1.7;}
-
-        .btn-main {
-            background: var(--powerbi-yellow); color: #000; padding: 15px 35px;
-            border-radius: 5px; font-weight: 800; font-size: 1.1rem; text-decoration: none;
-            transition: 0.2s; display: inline-block;
-        }
-        .btn-main:hover { background: #fff; transform: translateY(-2px); }
-
-        /* --- داشبورد CSS (القسم البصري) --- */
-        .hero-dashboard {
-            flex: 1; min-width: 350px; background: var(--bg-card);
-            border: 1px solid var(--border-line); border-radius: 10px; padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-        .dash-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--border-line); padding-bottom: 10px;}
-        .dash-header span { font-weight: bold; color: var(--text-muted); }
-        
-        .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-        .kpi-box { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 5px; border-left: 3px solid var(--powerbi-yellow); }
-        .kpi-box:nth-child(2) { border-color: var(--excel-green); }
-        .kpi-box:nth-child(3) { border-color: #3b82f6; }
-        .kpi-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
-        .kpi-value { font-size: 1.5rem; font-weight: 900; }
-
-        .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-        .bar-chart-container { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 5px; display: flex; align-items: flex-end; gap: 10px; height: 150px; }
-        .css-bar { flex: 1; background: var(--powerbi-yellow); border-radius: 3px 3px 0 0; opacity: 0.8; transition: height 1s ease-out;}
-        .css-bar:hover { opacity: 1; cursor: pointer; }
-        
-        .donut-container { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 5px; display: flex; justify-content: center; align-items: center; }
-        .donut-chart {
-            width: 100px; height: 100px; border-radius: 50%;
-            background: conic-gradient(var(--powerbi-yellow) 0% 60%, var(--excel-green) 60% 85%, #3b82f6 85% 100%);
-            position: relative;
-        }
-        .donut-chart::after {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 60px; height: 60px; background: var(--bg-card); border-radius: 50%;
-        }
-
-        /* --- العمليات (Data Pipeline) --- */
-        .section { padding: 80px 5%; max-width: 1200px; margin: auto; }
-        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 60px; border-bottom: 2px solid var(--powerbi-yellow); display: inline-block; padding-bottom: 10px; }
-        
-        .pipeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .data-card {
-            background: var(--bg-card); border: 1px solid var(--border-line);
-            padding: 30px; border-radius: 8px; transition: 0.3s;
-        }
-        .data-card:hover { border-color: var(--powerbi-yellow); transform: translateY(-5px); }
-        .data-icon { font-size: 2rem; color: var(--powerbi-yellow); margin-bottom: 20px; }
-        .data-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .data-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
-        .data-tags { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
-        .data-tags span { background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 3px; font-size: 0.8rem; color: #cbd5e1; border: 1px solid var(--border-line); }
-
-        /* --- الأسعار --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .price-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 40px; border-radius: 8px; }
-        .price-card.featured { border-color: var(--powerbi-yellow); box-shadow: 0 0 20px rgba(242, 200, 17, 0.1); position: relative; }
-        .badge-pro { position: absolute; top: -12px; right: 20px; background: var(--powerbi-yellow); color: #000; padding: 4px 15px; font-weight: bold; font-size: 0.8rem; border-radius: 3px; }
-        
-        .price-amount { font-size: 3rem; font-weight: 900; margin: 20px 0; color: #fff; }
-        .price-features { list-style: none; margin-bottom: 30px; }
-        .price-features li { margin-bottom: 15px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
-        .price-features i { color: var(--excel-green); }
-        
-        .btn-outline { display: block; text-align: center; padding: 12px; border: 1px solid var(--border-line); color: #fff; text-decoration: none; border-radius: 5px; transition: 0.2s; }
-        .btn-outline:hover { background: rgba(255,255,255,0.05); }
-        .btn-full { display: block; text-align: center; padding: 12px; background: var(--powerbi-yellow); color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.2s; }
-        .btn-full:hover { background: #fff; }
-
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-line); margin-top: 80px; color: var(--text-muted); }
-    </style>
-</head>
-<body>
-
-    <header>
-        <a href="#" class="logo"><i class="fas fa-chart-bar"></i> Sika IT</a>
-        <a href="#pricing" class="btn-nav">الأسعار</a>
-    </header>
-
-    <section class="hero">
-        <div class="hero-text">
-            <div class="code-badge">> SELECT * FROM your_data;</div>
-            <h1>حول بياناتك الخام إلى <br><span>رؤى استراتيجية.</span></h1>
-            <p>نحن نبني نماذج بيانات دقيقة ولوحات قيادة (Dashboards) تفاعلية تمكنك من مراقبة مؤشرات الأداء (KPIs) واتخاذ قرارات مبنية على الحقائق، لا التخمين.</p>
-            <a href="https://wa.me/249XXXXXXXXX" class="btn-main">اطلب تحليلاً لبياناتك</a>
-        </div>
-        
-        <div class="hero-dashboard">
-            <div class="dash-header">
-                <span>Sales Overview (YTD)</span>
-                <i class="fas fa-ellipsis-h" style="color: var(--text-muted);"></i>
-            </div>
-            <div class="kpi-row">
-                <div class="kpi-box">
-                    <div class="kpi-title">Total Revenue</div>
-                    <div class="kpi-value">$124K</div>
-                </div>
-                <div class="kpi-box">
-                    <div class="kpi-title">Profit Margin</div>
-                    <div class="kpi-value" style="color: var(--excel-green);">+24.5%</div>
-                </div>
-                <div class="kpi-box">
-                    <div class="kpi-title">Active Clients</div>
-                    <div class="kpi-value">892</div>
-                </div>
-            </div>
-            <div class="charts-row">
-                <div class="bar-chart-container">
-                    <div class="css-bar" style="height: 40%;"></div>
-                    <div class="css-bar" style="height: 70%;"></div>
-                    <div class="css-bar" style="height: 50%;"></div>
-                    <div class="css-bar" style="height: 90%;"></div>
-                    <div class="css-bar" style="height: 60%;"></div>
-                </div>
-                <div class="donut-container">
-                    <div class="donut-chart"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="pipeline">
-        <div style="text-align: center;"><h2 class="section-title">دورة حياة البيانات (Data Pipeline)</h2></div>
-        <div class="pipeline-grid">
-            <div class="data-card">
-                <div class="data-icon"><i class="fas fa-filter"></i></div>
-                <h3>1. تنظيف ومعالجة البيانات (ETL)</h3>
-                <p>استخراج البيانات من مصادر متعددة، إزالة التكرار، ومعالجة القيم المفقودة لتصبح جاهزة للتحليل.</p>
-                <div class="data-tags"><span>Power Query</span> <span>Data Cleaning</span></div>
-            </div>
-            <div class="data-card">
-                <div class="data-icon"><i class="fas fa-project-diagram"></i></div>
-                <h3>2. نمذجة البيانات (Data Modeling)</h3>
-                <p>بناء علاقات دقيقة بين الجداول وإنشاء مقاييس مخصصة لاستخراج مؤشرات أداء معقدة.</p>
-                <div class="data-tags"><span>DAX</span> <span>Relational Models</span></div>
-            </div>
-            <div class="data-card">
-                <div class="data-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>3. بناء الداشبورد (Visualization)</h3>
-                <p>تصميم واجهات بصرية تفاعلية وسهلة القراءة تتيح لك تصفية البيانات والتعمق فيها بنقرة زر.</p>
-                <div class="data-tags"><span>Power BI</span> <span>Excel Dashboards</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="pricing">
-        <div style="text-align: center;"><h2 class="section-title">باقات التحليل</h2></div>
-        <div class="pricing-grid">
-            <div class="price-card">
-                <h3 style="color: var(--text-muted);">تحليل وتقارير سريعة</h3>
-                <div class="price-amount">$150 <span>/ مشروع</span></div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> تنظيف هيكل البيانات (Data Cleaning)</li>
-                    <li><i class="fas fa-check"></i> تلخيص البيانات باستخدام Pivot Tables</li>
-                    <li><i class="fas fa-check"></i> تقرير PDF يحتوي على أهم الاستنتاجات</li>
-                </ul>
-                <a href="https://wa.me/249XXXXXXXXX" class="btn-outline">اطلب الآن</a>
-            </div>
-
-            <div class="price-card featured">
-                <div class="badge-pro">Power BI</div>
-                <h3 style="color: var(--powerbi-yellow);">داشبورد تفاعلي متكامل</h3>
-                <div class="price-amount">$350 <span>/ مشروع</span></div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> بناء نموذج بيانات احترافي (Data Model)</li>
-                    <li><i class="fas fa-check"></i> مقاييس DAX مخصصة لشركتك</li>
-                    <li><i class="fas fa-check"></i> لوحة قيادة تفاعلية قابلة للتحديث</li>
-                    <li><i class="fas fa-check"></i> تسليم ملف المصدر PBIX</li>
-                </ul>
-                <a href="https://wa.me/249XXXXXXXXX" class="btn-full">ابدأ التحليل</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p><i class="fas fa-database" style="color: var(--powerbi-yellow);"></i> Sika IT - Data Driven Decisions &copy; 2026</p>
-    </footer>
-
-</body>
-</html>
+        .btn-nav:hover { border-color: var(--powerbi-yellow); color: var
