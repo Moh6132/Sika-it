@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg-dark: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.9);
+            --bg-card: rgba(30, 41, 59, 0.8);
             --powerbi-yellow: #F2C811;
             --excel-green: #10b981;
             --text-main: #f8fafc;
@@ -29,16 +29,22 @@
             background-image: linear-gradient(var(--border-line) 1px, transparent 1px),
                               linear-gradient(90deg, var(--border-line) 1px, transparent 1px);
             background-size: 40px 40px;
+            background-position: center top;
         }
 
-        /* --- الهيدر --- */
+        /* --- الهيدر الذكي --- */
         header {
+            background: transparent;
+            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
+        }
+        header.scrolled {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--powerbi-yellow);
-            padding: 15px 5%; position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            padding: 10px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px;}
@@ -47,25 +53,31 @@
         .btn-nav {
             background: transparent; color: var(--text-main); padding: 8px 20px; 
             border: 1px solid var(--border-line); border-radius: 5px; 
-            text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s;
+            text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s;
         }
         .btn-nav:hover { border-color: var(--powerbi-yellow); color: var(--powerbi-yellow); background: rgba(242, 200, 17, 0.1); }
 
         /* --- الواجهة (Hero) --- */
         .hero { 
-            padding: 100px 5% 80px; max-width: 1400px; margin: auto; min-height: 90vh;
+            padding: 150px 5% 80px; max-width: 1400px; margin: auto; min-height: 100vh;
             display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
         }
-        .hero-text { flex: 1; min-width: 320px; }
+        .hero-text { flex: 1; min-width: 320px; perspective: 1000px; }
         
         .code-badge {
             display: inline-block; padding: 5px 15px; background: rgba(0,0,0,0.5);
             color: var(--excel-green); border: 1px solid var(--border-line);
             border-radius: 5px; font-family: monospace; font-size: 1rem; margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
         }
 
-        .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.3; margin-bottom: 20px; }
-        .hero h1 span { color: var(--powerbi-yellow); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.3; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        
+        /* مؤشر الكتابة */
+        .typed-text { color: var(--powerbi-yellow); }
+        .cursor { display: inline-block; width: 4px; background-color: #fff; margin-right: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 550px; margin-bottom: 40px; line-height: 1.7;}
 
         .btn-main {
@@ -75,34 +87,29 @@
         }
         .btn-main:hover { background: #fff; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(255, 255, 255, 0.3); }
 
-        /* --- داشبورد CSS بحركة 3D (بدون جافا سكريبت) --- */
+        /* --- داشبورد CSS 3D --- */
         .hero-dashboard {
             flex: 1; min-width: 350px; background: var(--bg-card);
             border: 1px solid var(--border-line); border-radius: 15px; padding: 25px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
             backdrop-filter: blur(10px);
-            transition: transform 0.5s ease;
-            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg); /* ميلان 3D افتراضي */
+            /* الـ 3D التلقائي هنا يتم عبر مكتبة Vanilla Tilt */
         }
-        .hero-dashboard:hover {
-            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02); /* يعتدل عند مرور الماوس */
-            border-color: var(--powerbi-yellow);
-        }
-
         .dash-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--border-line); padding-bottom: 10px;}
         .dash-header span { font-weight: bold; color: var(--text-muted); }
         
-        .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; transform: translateZ(30px); }
         .kpi-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; border-left: 3px solid var(--powerbi-yellow); transition: 0.3s; }
-        .kpi-box:hover { transform: translateY(-5px); background: rgba(0,0,0,0.5); }
+        .kpi-box:hover { transform: translateY(-5px) scale(1.05); border-color: #fff; }
         .kpi-box:nth-child(2) { border-color: var(--excel-green); }
         .kpi-box:nth-child(3) { border-color: #3b82f6; }
         .kpi-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
         .kpi-value { font-size: 1.5rem; font-weight: 900; }
 
-        .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+        .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; transform: translateZ(50px); }
         .bar-chart-container { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; display: flex; align-items: flex-end; gap: 10px; height: 150px; }
         
+        /* حركة الأعمدة الحية */
         .css-bar { flex: 1; background: var(--powerbi-yellow); border-radius: 3px 3px 0 0; opacity: 0.9; animation: liveBars 2s ease-in-out infinite alternate; }
         .css-bar:nth-child(2) { animation-delay: 0.2s; background: var(--excel-green); }
         .css-bar:nth-child(3) { animation-delay: 0.4s; background: #3b82f6; }
@@ -115,67 +122,65 @@
         .donut-chart::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #1a2235; border-radius: 50%; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- الكروت 3D --- */
+        /* --- كلاس الظهور السلس (Scroll Reveal) --- */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- العمليات (Data Pipeline) 3D --- */
         .section { padding: 80px 5%; max-width: 1200px; margin: auto; }
         .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 60px; border-bottom: 2px solid var(--powerbi-yellow); display: inline-block; padding-bottom: 10px; }
         
         .pipeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .data-card {
             background: var(--bg-card); border: 1px solid var(--border-line);
-            padding: 40px 30px; border-radius: 15px; transition: 0.4s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            padding: 40px 30px; border-radius: 15px; transition: 0.3s;
+            transform-style: preserve-3d; box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        /* حركة 3D عند مرور الماوس */
-        .data-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            border-color: var(--powerbi-yellow);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-        
-        .data-icon { font-size: 3rem; color: var(--powerbi-yellow); margin-bottom: 20px; }
-        .data-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
-        .data-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .data-icon { font-size: 3rem; color: var(--powerbi-yellow); margin-bottom: 20px; transform: translateZ(40px); display: inline-block; }
+        .data-card h3 { font-size: 1.4rem; margin-bottom: 15px; transform: translateZ(30px); }
+        .data-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; transform: translateZ(20px); }
+        .data-tags { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; transform: translateZ(10px); }
+        .data-tags span { background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 3px; font-size: 0.8rem; color: #fff; border: 1px solid var(--powerbi-yellow); }
 
-        /* --- الأسعار --- */
+        /* --- الأسعار 3D --- */
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .price-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 40px; border-radius: 15px; transition: 0.4s; }
-        .price-card:hover { transform: translateY(-10px); }
-        .price-card.featured { border: 2px solid var(--powerbi-yellow); background: rgba(30, 41, 59, 0.95); box-shadow: 0 0 30px rgba(242, 200, 17, 0.15); position: relative;}
-        .price-card.featured:hover { transform: scale(1.03); }
-        .badge-pro { position: absolute; top: -15px; right: 50%; transform: translateX(50%); background: var(--powerbi-yellow); color: #000; padding: 5px 20px; font-weight: bold; border-radius: 20px; }
+        .price-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 40px; border-radius: 15px; transform-style: preserve-3d; }
+        .price-card.featured { border: 2px solid var(--powerbi-yellow); background: rgba(30, 41, 59, 0.95); box-shadow: 0 0 40px rgba(242, 200, 17, 0.15); }
+        .badge-pro { position: absolute; top: -15px; right: 50%; transform: translateX(50%) translateZ(30px); background: var(--powerbi-yellow); color: #000; padding: 5px 20px; font-weight: bold; border-radius: 20px; }
         
-        .price-amount { font-size: 3.5rem; font-weight: 900; margin: 20px 0; color: #fff; }
-        .price-features { list-style: none; margin-bottom: 30px; }
+        .price-amount { font-size: 3.5rem; font-weight: 900; margin: 20px 0; color: #fff; transform: translateZ(40px); text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .price-features { list-style: none; margin-bottom: 30px; transform: translateZ(20px); }
         .price-features li { margin-bottom: 15px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
         .price-features i { color: var(--excel-green); }
         
-        .btn-outline { display: block; text-align: center; padding: 15px; border: 1px solid var(--border-line); color: #fff; text-decoration: none; border-radius: 5px; transition: 0.3s; }
+        .btn-outline { display: block; text-align: center; padding: 15px; border: 1px solid var(--border-line); color: #fff; text-decoration: none; border-radius: 5px; transition: 0.3s; transform: translateZ(30px); }
         .btn-outline:hover { background: var(--powerbi-yellow); color: #000; border-color: var(--powerbi-yellow); }
-        .btn-full { display: block; text-align: center; padding: 15px; background: var(--powerbi-yellow); color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; box-shadow: 0 10px 20px rgba(242, 200, 17, 0.3); }
-        .btn-full:hover { background: #fff; transform: translateY(-3px); }
+        .btn-full { display: block; text-align: center; padding: 15px; background: var(--powerbi-yellow); color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; transform: translateZ(40px); box-shadow: 0 10px 20px rgba(242, 200, 17, 0.3); }
+        .btn-full:hover { background: #fff; transform: translateY(-3px) translateZ(40px); }
 
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-line); margin-top: 80px; color: var(--text-muted); background: #0f172a; }
         
+        /* واتساب عائم */
         .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 100; transition: 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <a href="#" class="logo"><i class="fas fa-chart-pie"></i> Sika IT</a>
         <a href="#pricing" class="btn-nav">باقات الأسعار</a>
     </header>
 
-    <section class="hero">
+    <section class="hero reveal active">
         <div class="hero-text">
             <div class="code-badge">> import pandas as pd;</div>
-            <h1>حول بياناتك الخام إلى <br><span>رؤى استراتيجية.</span></h1>
+            <h1>حول بياناتك الخام إلى <br><span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
             <p>نحن نبني نماذج بيانات دقيقة ولوحات قيادة (Dashboards) تفاعلية تمكنك من مراقبة مؤشرات الأداء (KPIs) واتخاذ قرارات مبنية على الحقائق، لا التخمين.</p>
             <a href="https://wa.me/249XXXXXXXXX" class="btn-main">اطلب تحليلاً لبياناتك <i class="fas fa-arrow-left" style="margin-right: 10px;"></i></a>
         </div>
         
-        <div class="hero-dashboard">
+        <div class="hero-dashboard card-3d" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
             <div class="dash-header">
                 <span>Sales Overview (YTD)</span>
                 <i class="fas fa-ellipsis-h" style="color: var(--text-muted);"></i>
@@ -210,31 +215,34 @@
     </section>
 
     <section class="section" id="pipeline">
-        <div style="text-align: center;"><h2 class="section-title">دورة حياة البيانات (Data Pipeline)</h2></div>
+        <div style="text-align: center;"><h2 class="section-title reveal">دورة حياة البيانات (Data Pipeline)</h2></div>
         <div class="pipeline-grid">
-            <div class="data-card">
+            <div class="data-card card-3d reveal" data-tilt data-tilt-max="15" data-tilt-glare data-tilt-max-glare="0.4">
                 <div class="data-icon"><i class="fas fa-filter"></i></div>
                 <h3>1. معالجة البيانات (ETL)</h3>
                 <p>استخراج البيانات، إزالة التكرار، ومعالجة القيم المفقودة لتصبح جاهزة للتحليل.</p>
+                <div class="data-tags"><span>Power Query</span> <span>Data Cleaning</span></div>
             </div>
-            <div class="data-card">
+            <div class="data-card card-3d reveal" data-tilt data-tilt-max="15" data-tilt-glare data-tilt-max-glare="0.4" style="transition-delay: 0.1s;">
                 <div class="data-icon"><i class="fas fa-project-diagram"></i></div>
                 <h3>2. نمذجة البيانات (Modeling)</h3>
                 <p>بناء علاقات دقيقة وإنشاء مقاييس مخصصة لاستخراج مؤشرات أداء معقدة.</p>
+                <div class="data-tags"><span>DAX</span> <span>Relational Models</span></div>
             </div>
-            <div class="data-card">
+            <div class="data-card card-3d reveal" data-tilt data-tilt-max="15" data-tilt-glare data-tilt-max-glare="0.4" style="transition-delay: 0.2s;">
                 <div class="data-icon"><i class="fas fa-chart-line"></i></div>
                 <h3>3. الداشبورد (Visualization)</h3>
                 <p>تصميم واجهات بصرية تفاعلية تتيح لك تصفية البيانات والتعمق فيها بسهولة.</p>
+                <div class="data-tags"><span>Power BI</span> <span>Dashboards</span></div>
             </div>
         </div>
     </section>
 
     <section class="section" id="pricing">
-        <div style="text-align: center;"><h2 class="section-title">باقات التحليل</h2></div>
+        <div style="text-align: center;"><h2 class="section-title reveal">باقات التحليل</h2></div>
         <div class="pricing-grid">
-            <div class="price-card">
-                <h3 style="color: var(--text-muted);">تحليل وتقارير سريعة</h3>
+            <div class="price-card card-3d reveal" data-tilt data-tilt-max="10">
+                <h3 style="color: var(--text-muted); transform: translateZ(20px);">تحليل وتقارير سريعة</h3>
                 <div class="price-amount">$150 <span>/ مشروع</span></div>
                 <ul class="price-features">
                     <li><i class="fas fa-check"></i> تنظيف البيانات (Data Cleaning)</li>
@@ -244,9 +252,9 @@
                 <a href="https://wa.me/249XXXXXXXXX" class="btn-outline">اطلب الآن</a>
             </div>
 
-            <div class="price-card featured">
+            <div class="price-card featured card-3d reveal" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.3" style="transition-delay: 0.1s;">
                 <div class="badge-pro">Power BI</div>
-                <h3 style="color: var(--powerbi-yellow);">داشبورد تفاعلي متكامل</h3>
+                <h3 style="color: var(--powerbi-yellow); transform: translateZ(20px);">داشبورد تفاعلي متكامل</h3>
                 <div class="price-amount">$350 <span>/ مشروع</span></div>
                 <ul class="price-features">
                     <li><i class="fas fa-check"></i> بناء نموذج بيانات احترافي</li>
@@ -267,6 +275,65 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <script>
+        // تفعيل الـ 3D لجميع الكروت
+        VanillaTilt.init(document.querySelectorAll(".card-3d"), {
+            speed: 400,
+            perspective: 1000,
+        });
+
+        // 2. الهيدر المتغير اللون عند النزول
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // 3. الظهور السلس للعناصر عند التمرير
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) reveals[i].classList.add("active");
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // 4. تأثير الكتابة التلقائية المبرمج
+        const textArray = ["رؤى استراتيجية.", "قرارات مربحة.", "داشبورد تفاعلي.", "مؤشرات أداء (KPIs)."];
+        const typingDelay = 100;
+        const erasingDelay = 50;
+        const newTextDelay = 2000;
+        let textArrayIndex = 0;
+        let charIndex = 0;
+        const typedTextSpan = document.querySelector(".typed-text");
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else setTimeout(erase, newTextDelay);
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                textArrayIndex++;
+                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, typingDelay + 500);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            if(textArray.length) setTimeout(type, newTextDelay);
+        });
+    </script>
 </body>
 </html>
  
