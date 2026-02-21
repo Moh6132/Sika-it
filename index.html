@@ -101,5 +101,172 @@
         .kpi-value { font-size: 1.5rem; font-weight: 900; }
 
         .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-        .bar-chart-container { background: rgba(
+        .bar-chart-container { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; display: flex; align-items: flex-end; gap: 10px; height: 150px; }
+        
+        .css-bar { flex: 1; background: var(--powerbi-yellow); border-radius: 3px 3px 0 0; opacity: 0.9; animation: liveBars 2s ease-in-out infinite alternate; }
+        .css-bar:nth-child(2) { animation-delay: 0.2s; background: var(--excel-green); }
+        .css-bar:nth-child(3) { animation-delay: 0.4s; background: #3b82f6; }
+        .css-bar:nth-child(4) { animation-delay: 0.6s; }
+        .css-bar:nth-child(5) { animation-delay: 0.8s; background: var(--excel-green); }
+        @keyframes liveBars { 0% { transform: scaleY(0.5); transform-origin: bottom; } 100% { transform: scaleY(1); transform-origin: bottom; } }
+        
+        .donut-container { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; display: flex; justify-content: center; align-items: center; }
+        .donut-chart { width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(var(--powerbi-yellow) 0% 60%, var(--excel-green) 60% 85%, #3b82f6 85% 100%); position: relative; animation: spin 10s linear infinite; }
+        .donut-chart::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #1a2235; border-radius: 50%; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- الكروت 3D --- */
+        .section { padding: 80px 5%; max-width: 1200px; margin: auto; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 60px; border-bottom: 2px solid var(--powerbi-yellow); display: inline-block; padding-bottom: 10px; }
+        
+        .pipeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .data-card {
+            background: var(--bg-card); border: 1px solid var(--border-line);
+            padding: 40px 30px; border-radius: 15px; transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        /* حركة 3D عند مرور الماوس */
+        .data-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: var(--powerbi-yellow);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        
+        .data-icon { font-size: 3rem; color: var(--powerbi-yellow); margin-bottom: 20px; }
+        .data-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
+        .data-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- الأسعار --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .price-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 40px; border-radius: 15px; transition: 0.4s; }
+        .price-card:hover { transform: translateY(-10px); }
+        .price-card.featured { border: 2px solid var(--powerbi-yellow); background: rgba(30, 41, 59, 0.95); box-shadow: 0 0 30px rgba(242, 200, 17, 0.15); position: relative;}
+        .price-card.featured:hover { transform: scale(1.03); }
+        .badge-pro { position: absolute; top: -15px; right: 50%; transform: translateX(50%); background: var(--powerbi-yellow); color: #000; padding: 5px 20px; font-weight: bold; border-radius: 20px; }
+        
+        .price-amount { font-size: 3.5rem; font-weight: 900; margin: 20px 0; color: #fff; }
+        .price-features { list-style: none; margin-bottom: 30px; }
+        .price-features li { margin-bottom: 15px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+        .price-features i { color: var(--excel-green); }
+        
+        .btn-outline { display: block; text-align: center; padding: 15px; border: 1px solid var(--border-line); color: #fff; text-decoration: none; border-radius: 5px; transition: 0.3s; }
+        .btn-outline:hover { background: var(--powerbi-yellow); color: #000; border-color: var(--powerbi-yellow); }
+        .btn-full { display: block; text-align: center; padding: 15px; background: var(--powerbi-yellow); color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; box-shadow: 0 10px 20px rgba(242, 200, 17, 0.3); }
+        .btn-full:hover { background: #fff; transform: translateY(-3px); }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-line); margin-top: 80px; color: var(--text-muted); background: #0f172a; }
+        
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 100; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo"><i class="fas fa-chart-pie"></i> Sika IT</a>
+        <a href="#pricing" class="btn-nav">باقات الأسعار</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <div class="code-badge">> import pandas as pd;</div>
+            <h1>حول بياناتك الخام إلى <br><span>رؤى استراتيجية.</span></h1>
+            <p>نحن نبني نماذج بيانات دقيقة ولوحات قيادة (Dashboards) تفاعلية تمكنك من مراقبة مؤشرات الأداء (KPIs) واتخاذ قرارات مبنية على الحقائق، لا التخمين.</p>
+            <a href="https://wa.me/249XXXXXXXXX" class="btn-main">اطلب تحليلاً لبياناتك <i class="fas fa-arrow-left" style="margin-right: 10px;"></i></a>
+        </div>
+        
+        <div class="hero-dashboard">
+            <div class="dash-header">
+                <span>Sales Overview (YTD)</span>
+                <i class="fas fa-ellipsis-h" style="color: var(--text-muted);"></i>
+            </div>
+            <div class="kpi-row">
+                <div class="kpi-box">
+                    <div class="kpi-title">Total Revenue</div>
+                    <div class="kpi-value">$124K</div>
+                </div>
+                <div class="kpi-box">
+                    <div class="kpi-title">Profit Margin</div>
+                    <div class="kpi-value" style="color: var(--excel-green);">+24.5%</div>
+                </div>
+                <div class="kpi-box">
+                    <div class="kpi-title">Active Clients</div>
+                    <div class="kpi-value">892</div>
+                </div>
+            </div>
+            <div class="charts-row">
+                <div class="bar-chart-container">
+                    <div class="css-bar" style="height: 60%;"></div>
+                    <div class="css-bar" style="height: 80%;"></div>
+                    <div class="css-bar" style="height: 40%;"></div>
+                    <div class="css-bar" style="height: 90%;"></div>
+                    <div class="css-bar" style="height: 70%;"></div>
+                </div>
+                <div class="donut-container">
+                    <div class="donut-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="pipeline">
+        <div style="text-align: center;"><h2 class="section-title">دورة حياة البيانات (Data Pipeline)</h2></div>
+        <div class="pipeline-grid">
+            <div class="data-card">
+                <div class="data-icon"><i class="fas fa-filter"></i></div>
+                <h3>1. معالجة البيانات (ETL)</h3>
+                <p>استخراج البيانات، إزالة التكرار، ومعالجة القيم المفقودة لتصبح جاهزة للتحليل.</p>
+            </div>
+            <div class="data-card">
+                <div class="data-icon"><i class="fas fa-project-diagram"></i></div>
+                <h3>2. نمذجة البيانات (Modeling)</h3>
+                <p>بناء علاقات دقيقة وإنشاء مقاييس مخصصة لاستخراج مؤشرات أداء معقدة.</p>
+            </div>
+            <div class="data-card">
+                <div class="data-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>3. الداشبورد (Visualization)</h3>
+                <p>تصميم واجهات بصرية تفاعلية تتيح لك تصفية البيانات والتعمق فيها بسهولة.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="pricing">
+        <div style="text-align: center;"><h2 class="section-title">باقات التحليل</h2></div>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3 style="color: var(--text-muted);">تحليل وتقارير سريعة</h3>
+                <div class="price-amount">$150 <span>/ مشروع</span></div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> تنظيف البيانات (Data Cleaning)</li>
+                    <li><i class="fas fa-check"></i> تلخيص عبر Pivot Tables</li>
+                    <li><i class="fas fa-check"></i> تقرير PDF ملخص</li>
+                </ul>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn-outline">اطلب الآن</a>
+            </div>
+
+            <div class="price-card featured">
+                <div class="badge-pro">Power BI</div>
+                <h3 style="color: var(--powerbi-yellow);">داشبورد تفاعلي متكامل</h3>
+                <div class="price-amount">$350 <span>/ مشروع</span></div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> بناء نموذج بيانات احترافي</li>
+                    <li><i class="fas fa-check"></i> مقاييس DAX مخصصة</li>
+                    <li><i class="fas fa-check"></i> لوحة قيادة قابلة للتحديث</li>
+                    <li><i class="fas fa-check"></i> تسليم ملف المصدر PBIX</li>
+                </ul>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn-full">ابدأ التحليل</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><i class="fas fa-database" style="color: var(--powerbi-yellow);"></i> Sika IT - Data Driven Decisions &copy; 2026</p>
+    </footer>
+
+    <a href="https://wa.me/249XXXXXXXXX" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
  
