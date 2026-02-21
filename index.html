@@ -3,220 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sika IT | حلول البيانات</title>
+    <title>Sika IT | الذكاء في تحليل البيانات</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ========================================= */
+        /* المتغيرات والألوان الفاخرة */
+        /* ========================================= */
         :root {
-            --bg-dark: #0a0e17;
-            --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
-            --secondary-gradient: linear-gradient(135deg, #7F00FF, #E100FF);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-light: #e2e8f0;
+            --bg-base: #030712; /* أسود عميق جداً يميل للأزرق */
+            --bg-surface: #111827;
+            --primary: #0ea5e9; /* أزرق سماوي نقي */
+            --primary-glow: rgba(14, 165, 233, 0.5);
+            --accent: #8b5cf6; /* بنفسجي ملكي */
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-glass: rgba(255, 255, 255, 0.08);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-base);
+            color: var(--text-main);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- 1. الخلفية المتحركة (الطبقة السفلية) --- */
-        .animated-bg {
+        /* --- خلفية الأضواء الساحرة (Ambient Lights) --- */
+        .ambient-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 0; /* تم التعديل لضمان عدم حجب المحتوى */
-            overflow: hidden; background: #0a0e17;
+            z-index: 0; overflow: hidden; pointer-events: none;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
         }
-        .blob {
-            position: absolute; filter: blur(90px); border-radius: 50%;
-            animation: moveBlobs 15s infinite alternate ease-in-out;
-            opacity: 0.5;
-        }
-        .blob-1 { width: 400px; height: 400px; background: #0072ff; top: -10%; left: -10%; }
-        .blob-2 { width: 500px; height: 500px; background: #7F00FF; bottom: -20%; right: -10%; animation-delay: 2s; }
-
-        @keyframes moveBlobs {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 150px) scale(1.2); }
-        }
-
-        /* --- المحتوى الرئيسي (الطبقة العلوية) --- */
-        .main-content {
-            position: relative;
-            z-index: 10; /* هذه الطبقة ستكون دائماً فوق الخلفية */
+        
+        /* شبكة دقيقة جداً للخلفية (Grid Pattern) */
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+            background-image: linear-gradient(var(--border-glass) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--border-glass) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
         }
 
-        /* --- تصميم الزجاج العام --- */
-        .glass {
-            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        }
+        .main-wrapper { position: relative; z-index: 10; }
 
-        /* --- الهيدر --- */
+        /* ========================================= */
+        /* الهيدر الفاخر (Sleek Header) */
+        /* ========================================= */
         header {
-            padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.4s ease;
+            border-bottom: 1px solid transparent;
+            transition: 0.4s ease;
         }
         header.scrolled {
-            background: rgba(10, 14, 23, 0.95); box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            border-bottom: 1px solid var(--glass-border); padding: 10px 5%;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 15px 5%;
         }
 
-        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .logo { font-size: 2rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; }
+        .logo span { background: linear-gradient(to right, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
         .btn-nav {
-            background: var(--primary-gradient); color: white; padding: 10px 25px; 
-            border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+            background: transparent; color: white; padding: 10px 25px; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            border: 1px solid var(--border-glass); transition: 0.3s;
         }
-        .btn-nav:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 114, 255, 0.5); }
+        .btn-nav:hover { background: rgba(255,255,255,0.05); border-color: var(--primary); }
 
-        /* --- الواجهة (Hero) --- */
+        /* ========================================= */
+        /* الواجهة الرئيسية (Hero Section) */
+        /* ========================================= */
         .hero { 
-            padding: 180px 5% 100px; 
-            display: flex; align-items: center; justify-content: space-between; 
-            flex-wrap: wrap; gap: 40px; max-width: 1400px; margin: auto;
+            min-height: 100vh; display: flex; align-items: center; justify-content: space-between; 
+            padding: 120px 5% 80px; max-width: 1400px; margin: auto; gap: 50px; flex-wrap: wrap;
         }
-        .hero-text { flex: 1; min-width: 300px; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.3; font-weight: 900; }
+        .hero-content { flex: 1; min-width: 320px; animation: fadeUp 1s ease-out; }
         
-        .typed-text { background: var(--secondary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .cursor { display: inline-block; width: 4px; background-color: #00c6ff; margin-right: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        .hero p { font-size: 1.2rem; color: #cbd5e1; max-width: 600px; margin: 0 0 40px; line-height: 1.8; }
-        .btn { padding: 12px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; margin-left: 10px; margin-bottom: 10px; }
-        .btn-primary { background: var(--primary-gradient); color: white; border: none; }
-        .btn-outline { background: transparent; color: white; border: 2px solid #00c6ff; }
-
-        /* الصورة المتحركة */
-        .hero-image { flex: 1; min-width: 300px; text-align: center; }
-        .animated-gif { 
-            width: 100%; max-width: 450px; border-radius: 20px;
-            animation: floatImage 4s ease-in-out infinite;
+        .badge {
+            display: inline-block; padding: 6px 15px; background: rgba(14, 165, 233, 0.1);
+            color: var(--primary); border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 25px;
         }
-        @keyframes floatImage { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
 
-        /* --- الأقسام --- */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .hero h1 { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
+        .hero h1 .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 550px; margin-bottom: 40px; }
+
+        .btn-main {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--text-main); color: var(--bg-base); padding: 16px 40px;
+            border-radius: 8px; font-weight: 800; font-size: 1.1rem; text-decoration: none;
+            transition: 0.3s; box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,255,255,0.2); background: var(--primary); color: white; }
+
+        /* --- المخطط البياني التفاعلي (بديل الـ GIF) --- */
+        .hero-visual { flex: 1; min-width: 320px; display: flex; justify-content: center; align-items: center; animation: fadeUp 1.2s ease-out; }
+        
+        .data-dashboard {
+            width: 100%; max-width: 500px; aspect-ratio: 4/3;
+            background: rgba(17, 24, 39, 0.6); border: 1px solid var(--border-glass);
+            border-radius: 20px; padding: 30px; backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; position: relative;
+        }
+        /* تصميم الأعمدة البيانية المتحركة بـ CSS */
+        .bar {
+            flex: 1; background: linear-gradient(to top, var(--primary), var(--accent));
+            border-radius: 6px 6px 0 0; opacity: 0.8;
+            animation: animateBar 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+        .bar:nth-child(1) { height: 40%; animation-delay: 0.0s; }
+        .bar:nth-child(2) { height: 70%; animation-delay: 0.3s; }
+        .bar:nth-child(3) { height: 50%; animation-delay: 0.6s; }
+        .bar:nth-child(4) { height: 90%; animation-delay: 0.9s; }
+        .bar:nth-child(5) { height: 60%; animation-delay: 1.2s; }
+
+        @keyframes animateBar {
+            0% { transform: scaleY(0.8); transform-origin: bottom; opacity: 0.6; }
+            100% { transform: scaleY(1.1); transform-origin: bottom; opacity: 1; }
+        }
+
+        /* ========================================= */
+        /* الأقسام والكروت (Bento Grid Style) */
+        /* ========================================= */
+        .section { padding: 100px 5%; max-width: 1400px; margin: auto; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 15px; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.2rem; }
+
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+        }
+        .premium-card {
+            background: rgba(17, 24, 39, 0.4); border: 1px solid var(--border-glass);
+            border-radius: 24px; padding: 40px; backdrop-filter: blur(10px);
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        /* لمعة خفيفة عند تمرير الماوس */
+        .premium-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .premium-card:hover::before { opacity: 1; }
+        .premium-card:hover { transform: translateY(-5px); border-color: rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        .card-icon-wrapper {
+            width: 60px; height: 60px; border-radius: 16px; background: rgba(14, 165, 233, 0.1);
+            display: flex; justify-content: center; align-items: center; margin-bottom: 25px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+        .card-icon-wrapper i { font-size: 1.8rem; color: var(--primary); }
+        .premium-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; }
+        .premium-card p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; }
+
+        /* ========================================= */
+        /* الأسعار (Pricing) */
+        /* ========================================= */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: center; }
+        
+        .price-card {
+            background: var(--bg-surface); border: 1px solid var(--border-glass);
+            border-radius: 24px; padding: 50px 40px; text-align: right; transition: 0.3s;
+        }
+        .price-card.pro {
+            background: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(3, 7, 18, 0.9) 100%);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15); transform: scale(1.02);
+            position: relative;
+        }
+        .pro-badge {
+            position: absolute; top: -15px; left: 40px; background: var(--primary); color: #fff;
+            padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+        }
+
+        .price-title { font-size: 1.4rem; color: var(--text-muted); margin-bottom: 15px; }
+        .price-amount { font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 30px; display: flex; align-items: baseline; gap: 5px; }
+        .price-amount span { font-size: 1.2rem; color: var(--text-muted); font-weight: normal; }
+        
+        .price-features { list-style: none; margin-bottom: 40px; }
+        .price-features li { margin-bottom: 18px; display: flex; align-items: center; gap: 15px; color: #e5e7eb; }
+        .price-features i { color: var(--primary); font-size: 1.2rem; }
+
+        .btn-price {
+            display: block; width: 100%; text-align: center; padding: 15px;
+            border-radius: 8px; font-weight: 700; text-decoration: none; border: 1px solid var(--border-glass); color: #fff; transition: 0.3s;
+        }
+        .btn-price.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .btn-price:hover { background: #fff; color: var(--bg-base); border-color: #fff; }
+
+        /* ========================================= */
+        /* الفوتر والواتساب */
+        /* ========================================= */
+        footer { border-top: 1px solid var(--border-glass); padding: 60px 5%; text-align: center; margin-top: 50px; background: rgba(17, 24, 39, 0.3); }
+        .whatsapp-float {
+            position: fixed; bottom: 40px; left: 40px; /* يسار الشاشة أفضل في العربي */
+            background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 30px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 99; transition: 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        /* حركات الظهور */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
-        .section-title { text-align: center; margin: 80px 0 50px; font-size: 2.2rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
-        .card { border-radius: 20px; padding: 30px; transition: 0.4s; }
-        .card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.3); }
-        .card-icon { font-size: 3rem; margin-bottom: 20px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: floatIcon 3s ease-in-out infinite; display: inline-block; }
-        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* --- العدادات --- */
-        .stats-section { margin-top: 80px; }
-        .stat-card { text-align: center; }
-        .stat-number { font-size: 3.5rem; font-weight: 900; color: #00c6ff; display: inline-block; }
-        .stat-plus { font-size: 2.5rem; color: #E100FF; font-weight: bold; }
-
-        /* الفوتر والأسعار */
-        .pricing-card { text-align: center; }
-        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; }
-        .features-list { list-style: none; padding: 0; text-align: right; margin: 25px 0; }
-        .features-list li { margin-bottom: 15px; }
-        .features-list i { color: #00c6ff; margin-left: 15px; }
-        
-        footer { margin-top: 100px; padding: 50px; text-align: center; border-radius: 30px 30px 0 0; }
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 100; transition: 0.3s; }
-
-        @media (max-width: 768px) { .hero { text-align: center; padding-top: 120px; } .hero h1 { font-size: 2.5rem; } }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero { padding-top: 150px; text-align: center; }
+            .badge { margin: 0 auto 25px; }
+            .hero p { margin: 0 auto 40px; }
+            .price-card.pro { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="animated-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
+    <div class="ambient-bg"></div>
+    <div class="grid-overlay"></div>
 
-    <div class="main-content">
-        <header class="glass" id="main-header">
-            <a href="#" class="logo">Sika IT</a>
-            <a href="#contact" class="btn-nav">اتصل بنا</a>
+    <div class="main-wrapper">
+        <header id="main-header">
+            <a href="#" class="logo">Sika <span>IT</span></a>
+            <a href="#pricing" class="btn-nav">باقات الأسعار</a>
         </header>
 
-        <div class="hero reveal active">
-            <div class="hero-text">
-                <h1>اكتشف القوة الخفية <br> في <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
-                <p>نحول الأرقام المعقدة إلى قرارات استراتيجية واضحة ومربحة.</p>
-                <div>
-                    <a href="#pricing" class="btn btn-primary">شاهد الباقات</a>
-                    <a href="#why-us" class="btn btn-outline">لماذا نحن؟</a>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge">الجيل الجديد من تحليل البيانات</div>
+                <h1>نصنع من الأرقام <br><span class="gradient-text">قرارات ذكية.</span></h1>
+                <p>وداعاً للتقارير المعقدة. نحن نحول بيانات شركتك إلى لوحات قيادة تفاعلية فائقة الدقة، مصممة خصيصاً لتسريع نمو أرباحك.</p>
+                <a href="https://wa.me/249XXXXXXXXX" class="btn-main">
+                    ابدأ مشروعك الآن <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="data-dashboard">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://i.pinimg.com/originals/e4/c8/10/e4c810427c3d221cd35e468e5cc69cb2.gif" alt="Data Animation GIF" class="animated-gif">
-            </div>
-        </div>
+        </section>
 
-        <div class="container stats-section reveal" id="stats">
-            <div class="grid">
-                <div class="card glass stat-card">
-                    <div class="stat-number" data-target="150">0</div><span class="stat-plus">+</span>
-                    <div style="color: #a0aec0; margin-top:10px;">مشروع مكتمل</div>
+        <section class="section" id="features">
+            <div class="section-header reveal">
+                <h2 class="section-title">معيار جديد للاحترافية</h2>
+                <p class="section-subtitle">لا نكتفي بجمع البيانات، بل نستنطقها لخدمة أعمالك.</p>
+            </div>
+            <div class="bento-grid">
+                <div class="premium-card reveal">
+                    <div class="card-icon-wrapper"><i class="fas fa-chart-pie"></i></div>
+                    <h3>رؤية شاملة 360°</h3>
+                    <p>داشبورد يجمع بياناتك من مصادر متعددة (Excel, SQL, Cloud) في مكان واحد حي وتفاعلي.</p>
                 </div>
-                <div class="card glass stat-card">
-                    <div class="stat-number" data-target="85">0</div><span class="stat-plus">+</span>
-                    <div style="color: #a0aec0; margin-top:10px;">داشبورد تفاعلي</div>
+                <div class="premium-card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-icon-wrapper"><i class="fas fa-bolt"></i></div>
+                    <h3>أتمتة بلا تدخل بشري</h3>
+                    <p>تقاريرك تحدث نفسها تلقائياً على مدار الساعة، لتتخذ قراراتك بناءً على بيانات اللحظة.</p>
+                </div>
+                <div class="premium-card reveal" style="transition-delay: 0.2s;">
+                    <div class="card-icon-wrapper"><i class="fas fa-lock"></i></div>
+                    <h3>أمان مؤسسي صارم</h3>
+                    <p>بياناتك ملكك وحدك. نطبق أعلى بروتوكولات التشفير والخصوصية لضمان سرية معلوماتك التجارية.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="why-us" class="container reveal">
-            <h2 class="section-title">لماذا Sika IT؟</h2>
-            <div class="grid">
-                <div class="card glass">
-                    <div class="card-icon"><i class="fas fa-brain"></i></div>
-                    <h3>ذكاء تحليلي</h3>
-                    <p>الكشف عن الأنماط المخفية في بياناتك بدقة متناهية.</p>
-                </div>
-                <div class="card glass">
-                    <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    <h3>داشبورد تفاعلي</h3>
-                    <p>لوحات قيادة ديناميكية تتحدث لحظياً لتراقب عملك.</p>
-                </div>
+        <section class="section" id="pricing">
+            <div class="section-header reveal">
+                <h2 class="section-title">استثمار مضمون العوائد</h2>
+                <p class="section-subtitle">اختر الخطة التي تناسب حجم طموحك.</p>
             </div>
-        </div>
-
-        <div id="pricing" class="container reveal">
-            <h2 class="section-title">الباقات</h2>
-            <div class="grid">
-                <div class="card glass pricing-card">
-                    <h3>الأساسية</h3>
-                    <div class="price">$150</div>
-                    <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> تنظيف البيانات</li>
-                        <li><i class="fas fa-check-circle"></i> تقرير PDF</li>
+            
+            <div class="pricing-grid">
+                <div class="price-card reveal">
+                    <div class="price-title">التحليل الأساسي</div>
+                    <div class="price-amount">$150 <span>/ مشروع</span></div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> تنظيف ومعالجة البيانات</li>
+                        <li><i class="fas fa-check"></i> تقرير تحليلي PDF</li>
+                        <li><i class="fas fa-check"></i> رسوم بيانية توضيحية</li>
+                        <li style="opacity: 0.4;"><i class="fas fa-times"></i> داشبورد تفاعلي</li>
                     </ul>
-                    <a href="#" class="btn btn-outline" style="width:100%;">اطلب الآن</a>
+                    <a href="https://wa.me/249XXXXXXXXX" class="btn-price">اطلب الخطة</a>
                 </div>
-                
-                <div class="card glass pricing-card" style="border: 2px solid #E100FF; transform: scale(1.05);">
-                    <h3>الاحترافية</h3>
-                    <div class="price">$350</div>
-                    <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> داشبورد Power BI</li>
-                        <li><i class="fas fa-check-circle"></i> ربط مباشر للبيانات</li>
+
+                <div class="price-card pro reveal" style="transition-delay: 0.1s;">
+                    <div class="pro-badge">خيار الشركات</div>
+                    <div class="price-title" style="color: var(--primary);">Power BI داشبورد</div>
+                    <div class="price-amount">$350 <span>/ مشروع</span></div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> لوحة قيادة تفاعلية بالكامل</li>
+                        <li><i class="fas fa-check"></i> ربط مباشر ومستمر للبيانات</li>
+                        <li><i class="fas fa-check"></i> استخراج مؤشرات الأداء (KPIs)</li>
+                        <li><i class="fas fa-check"></i> دعم فني وتعديلات مجانية</li>
                     </ul>
-                    <a href="#" class="btn btn-primary" style="width:100%;">اطلب الآن</a>
+                    <a href="https://wa.me/249XXXXXXXXX" class="btn-price active">الاستثمار الأفضل</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <footer class="glass" id="contact">
-            <h2 class="logo" style="font-size: 2.5rem; margin-bottom: 20px;">Sika IT</h2>
-            <p>&copy; 2026 جميع الحقوق محفوظة.</p>
+        <footer>
+            <h2 class="logo" style="margin-bottom: 10px;">Sika <span>IT</span></h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">شريكك التكنولوجي الموثوق. &copy; 2026</p>
         </footer>
     </div>
 
@@ -225,58 +338,35 @@
     </a>
 
     <script>
-        // تفعيل الظهور فوراً عند تحميل الصفحة (تجنباً للشاشة السوداء)
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
-        });
-
+        // تغيير الهيدر
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
-            if (window.scrollY > 50) header.classList.add('scrolled');
+            if (window.scrollY > 20) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         });
 
-        const textArray = ["بياناتك.", "أرقامك.", "شركتك."];
-        let textArrayIndex = 0, charIndex = 0;
-        const typedTextSpan = document.querySelector(".typed-text");
+        // ظهور العناصر بنعومة بالغة
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-        function type() {
-            if (charIndex < textArray[textArrayIndex].length) {
-                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(type, 150);
-            } else setTimeout(erase, 2000);
-        }
-        function erase() {
-            if (charIndex > 0) {
-                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(erase, 100);
-            } else {
-                textArrayIndex++;
-                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
-                setTimeout(type, 600);
-            }
-        }
-        document.addEventListener("DOMContentLoaded", () => setTimeout(type, 2000));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        const counters = document.querySelectorAll('.stat-number');
-        let started = false;
-        window.addEventListener('scroll', () => {
-            const statsSection = document.getElementById('stats');
-            if(statsSection && statsSection.getBoundingClientRect().top < window.innerHeight / 1.2 && !started) {
-                counters.forEach(counter => {
-                    counter.innerText = '0';
-                    const updateCounter = () => {
-                        const target = +counter.getAttribute('data-target');
-                        const c = +counter.innerText;
-                        if(c < target) { counter.innerText = `${Math.ceil(c + target/100)}`; setTimeout(updateCounter, 20); }
-                        else counter.innerText = target;
-                    };
-                    updateCounter();
-                });
-                started = true;
-            }
+        // تأثير إضاءة الكروت عند مرور الماوس (Hover Glow Effect)
+        document.querySelectorAll('.premium-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
         });
     </script>
 </body>
