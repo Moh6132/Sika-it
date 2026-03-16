@@ -1,96 +1,246 @@
-/* إعدادات الخطوط والألوان الأساسية */
-:root {
-    --bg-dark: #020617;        /* أسود عميق جداً */
-    --bg-card: #0f172a;        /* كحلي غامق للبطاقات */
-    --primary-blue: #3b82f6;   /* أزرق تقني */
-    --powerbi-yellow: #f2c811; /* أصفر باور بي آي */
-    --excel-green: #10b981;    /* أخضر إكسل */
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --border-line: rgba(255, 255, 255, 0.05);
+:root{
+
+--bg-dark:#020617;
+--card:#0f172a;
+--primary:#3b82f6;
+--secondary:#6366f1;
+--accent:#facc15;
+--text:#f8fafc;
+--muted:#94a3b8;
+
 }
 
-/* تحسين الخلفية العامة للموقع */
-body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    line-height: 1.8;
-    /* إضافة لمسة تقنية (نقاط هندسية) في الخلفية */
-    background-image: radial-gradient(var(--border-line) 2px, transparent 0);
-    background-size: 30px 30px;
+body{
+
+font-family:'Cairo',sans-serif;
+background:linear-gradient(180deg,#020617,#020617,#020617,#0f172a);
+color:var(--text);
+
 }
 
-/* تأثير الزجاج (Glassmorphism) للهيدر والبطاقات */
-.glass-effect {
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* NAVBAR */
+
+nav{
+
+position:fixed;
+width:100%;
+top:0;
+padding:15px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+
 }
 
-/* تحسين أزرار التواصل */
-.btn-action {
-    background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
-    color: white;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: 700;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: inline-block;
-    border: none;
-    box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+.logo{
+
+font-size:1.8rem;
+font-weight:900;
+
 }
 
-.btn-action:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.7);
-    color: #fff;
+.logo span{
+
+background:linear-gradient(45deg,#3b82f6,#6366f1);
+-webkit-background-clip:text;
+color:transparent;
+
 }
 
-/* تصميم بطاقات الخدمات الاحترافية */
-.service-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-line);
-    padding: 35px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+.menu a{
+
+color:white;
+text-decoration:none;
+margin:0 15px;
+position:relative;
+
 }
 
-.service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0; width: 100%; height: 4px;
-    background: var(--primary-blue);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
+.menu a::after{
+
+content:"";
+width:0%;
+height:2px;
+background:var(--primary);
+position:absolute;
+bottom:-5px;
+right:0;
+transition:.3s;
+
 }
 
-.service-card:hover {
-    border-color: var(--primary-blue);
-    background: #1e293b;
+.menu a:hover::after{
+
+width:100%;
+
 }
 
-.service-card:hover::after {
-    transform: scaleX(1);
+/* HERO */
+
+.hero{
+
+padding:160px 8%;
+display:flex;
+align-items:center;
+gap:60px;
+flex-wrap:wrap;
+
 }
 
-/* تأثير الأنيميشن للأعمدة (Charts) */
-@keyframes growBar {
-    from { height: 0; }
-    to { height: var(--target-height); }
+.hero h1{
+
+font-size:3.2rem;
+font-weight:900;
+line-height:1.2;
+
 }
 
-.bar-item {
-    width: 20px;
-    background: var(--powerbi-yellow);
-    border-radius: 4px 4px 0 0;
-    animation: growBar 2s forwards ease-out;
+.hero h1 span{
+
+background:linear-gradient(45deg,#facc15,#fb923c);
+-webkit-background-clip:text;
+color:transparent;
+
 }
 
-/* تحسين الخطوط والتنسيق للأجهزة المحمولة */
-@media (max-width: 768px) {
-    .hero-title { font-size: 2.2rem !important; }
-    .hero-desc { font-size: 1rem !important; }
+.hero p{
+
+color:var(--muted);
+font-size:1.1rem;
+margin-top:20px;
+max-width:600px;
+
+}
+
+/* BUTTON */
+
+.btn{
+
+background:linear-gradient(45deg,#3b82f6,#6366f1);
+padding:12px 30px;
+border-radius:40px;
+text-decoration:none;
+color:white;
+font-weight:700;
+display:inline-block;
+margin-top:25px;
+transition:.3s;
+
+}
+
+.btn:hover{
+
+transform:scale(1.05);
+box-shadow:0 10px 30px rgba(59,130,246,.4);
+
+}
+
+/* CARDS */
+
+.card{
+
+background:rgba(15,23,42,.7);
+border:1px solid rgba(255,255,255,.05);
+padding:35px;
+border-radius:20px;
+transition:.4s;
+
+backdrop-filter:blur(10px);
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+border:1px solid var(--primary);
+box-shadow:0 20px 40px rgba(0,0,0,.4);
+
+}
+
+.card i{
+
+font-size:35px;
+color:var(--accent);
+margin-bottom:15px;
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+
+}
+
+/* SECTION */
+
+.section{
+
+padding:110px 8%;
+
+}
+
+.title{
+
+text-align:center;
+margin-bottom:60px;
+
+}
+
+.title h2{
+
+font-size:2.5rem;
+font-weight:900;
+
+}
+
+/* DASHBOARD */
+
+.dashboard{
+
+background:rgba(15,23,42,.8);
+padding:30px;
+border-radius:20px;
+box-shadow:0 25px 50px rgba(0,0,0,.6);
+transform:perspective(1000px) rotateY(-8deg);
+
+}
+
+.kpis{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+
+}
+
+.kpi{
+
+background:#020617;
+padding:15px;
+border-radius:10px;
+text-align:center;
+
+}
+
+.kpi h3{
+
+font-size:1.6rem;
+
+}
+
+/* FOOTER */
+
+footer{
+
+padding:50px;
+text-align:center;
+background:#000;
+
 }
