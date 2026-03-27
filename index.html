@@ -29,7 +29,6 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            /* خلفية تقنية خفيفة */
             background-image: radial-gradient(circle at 2px 2px, var(--border-line) 1px, transparent 0);
             background-size: 40px 40px;
         }
@@ -52,6 +51,7 @@
             background: var(--primary-blue); color: white; padding: 10px 25px;
             border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            display: inline-block;
         }
         .btn-contact:hover { background: var(--powerbi-yellow); color: #000; transform: scale(1.05); }
 
@@ -67,7 +67,7 @@
         .hero-text h1 span { color: var(--powerbi-yellow); }
         .hero-text p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; }
 
-        /* --- داشبورد 3D المحسن --- */
+        /* --- داشبورد 3D --- */
         .hero-dashboard {
             flex: 1; min-width: 380px; background: var(--glass-bg);
             border: 1px solid var(--border-line); border-radius: 20px; padding: 30px;
@@ -92,26 +92,28 @@
         @keyframes grow { from { height: 0; } }
 
         /* --- الأقسام (Services & Pricing) --- */
-        .section { padding: 100px 8%; max-width: 1300px; margin: auto; }
+        .section { padding: 100px 8%; max-width: 1400px; margin: auto; }
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 2.8rem; margin-bottom: 15px; }
         .section-title .line { width: 80px; height: 4px; background: var(--powerbi-yellow); margin: auto; border-radius: 2px; }
 
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
         .card {
             background: var(--bg-card); padding: 40px; border-radius: 20px;
             border: 1px solid var(--border-line); transition: 0.4s;
+            display: flex; flex-direction: column; height: 100%;
         }
         .card:hover { transform: translateY(-10px); border-color: var(--primary-blue); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
         .card i { font-size: 2.5rem; color: var(--powerbi-yellow); margin-bottom: 20px; }
+        .card h3 { margin-bottom: 15px; font-size: 1.5rem; }
 
         /* --- الأسعار --- */
         .price-card { text-align: center; position: relative; overflow: hidden; }
         .price-card.featured { border: 2px solid var(--primary-blue); background: rgba(30, 41, 59, 0.95); }
-        .price-tag { font-size: 3rem; font-weight: 900; margin: 25px 0; }
+        .price-tag { font-size: 2.5rem; font-weight: 900; margin: 25px 0; color: #fff; }
         .price-tag span { font-size: 1rem; color: var(--text-muted); }
-        .features-list { list-style: none; margin-bottom: 30px; text-align: right; }
+        .features-list { list-style: none; margin-bottom: 30px; text-align: right; flex-grow: 1; }
         .features-list li { margin-bottom: 12px; font-size: 1.05rem; }
         .features-list i { color: var(--excel-green); margin-left: 10px; }
 
@@ -141,8 +143,8 @@
     <section class="hero">
         <div class="hero-text">
             <h1>بياناتك هي <span>بوصلة</span> نجاحك المستقبلي.</h1>
-            <p>نقدم خدمات جمع وتحليل البيانات عن بُعد باستخدام أقوى الأدوات العالمية Power BI و Excel لتحويل الأرقام الصماء إلى رؤى بصرية ذكية.</p>
-            <div style="display: flex; gap: 15px;">
+            <p>نقدم حلولاً تقنية متكاملة تبدأ من تصميم الأنظمة وجمع البيانات، وصولاً إلى التحليل الذكي والتسويق الرقمي المبني على الأرقام.</p>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <a href="#services" class="btn-contact" style="background: var(--powerbi-yellow); color: #000;">اكتشف خدماتنا</a>
                 <a href="#pricing" class="btn-contact" style="background: transparent; border: 1px solid var(--text-muted);">باقات الأسعار</a>
             </div>
@@ -182,7 +184,7 @@
             <h2>ماذا نقدم لعملائنا؟</h2>
             <div class="line"></div>
         </div>
-        <div class="grid-3">
+        <div class="grid-services">
             <div class="card">
                 <i class="fas fa-satellite-dish"></i>
                 <h3>جمع البيانات عن بُعد</h3>
@@ -198,6 +200,21 @@
                 <h3>لوحات Power BI التفاعلية</h3>
                 <p>تصميم تقارير ديناميكية تتيح لك مراقبة مشروعك بضغطة زر واحدة ومن أي مكان.</p>
             </div>
+            <div class="card">
+                <i class="fas fa-layer-group"></i>
+                <h3>تصميم الأنظمة (System Design)</h3>
+                <p>تخطيط وبناء بنية تحتية تقنية قوية تضمن تدفق البيانات بكفاءة بين أقسام مؤسستك.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-bullhorn"></i>
+                <h3>التسويق الرقمي (Marketing)</h3>
+                <p>حملات تسويقية ذكية موجهة تعتمد على تحليل البيانات للوصول لأفضل النتائج بأقل التكاليف.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-magnifying-glass-chart"></i>
+                <h3>تحليل السوق (Market Analysis)</h3>
+                <p>دراسة المنافسين واتجاهات السوق لتحديد الفرص المتاحة والمخاطر المحتملة لمشروعك.</p>
+            </div>
         </div>
     </section>
 
@@ -206,7 +223,7 @@
             <h2>باقات مرنة تناسب احتياجك</h2>
             <div class="line"></div>
         </div>
-        <div class="grid-3">
+        <div class="grid-services">
             <div class="card price-card">
                 <h3>باقة Excel الاحترافية</h3>
                 <div class="price-tag">25k <span>SDG</span></div>
@@ -215,7 +232,7 @@
                     <li><i class="fas fa-check-circle"></i> جداول محورية Pivot Tables</li>
                     <li><i class="fas fa-check-circle"></i> رسوم بيانية ثابتة</li>
                 </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact" style="display: block;">اطلب الباقة</a>
+                <a href="https://wa.me/249116551636" class="btn-contact">اطلب الباقة</a>
             </div>
 
             <div class="card price-card featured">
@@ -223,12 +240,24 @@
                 <h3 style="color: var(--powerbi-yellow);">باقة Power BI الذكية</h3>
                 <div class="price-tag">85k <span>SDG</span></div>
                 <ul class="features-list">
-                    <li><i class="fas fa-check-circle"></i> بناء نموذج بيانات كامل (Data Model)</li>
+                    <li><i class="fas fa-check-circle"></i> بناء نموذج بيانات كامل</li>
                     <li><i class="fas fa-check-circle"></i> مقاييس DAX مخصصة</li>
-                    <li><i class="fas fa-check-circle"></i> لوحة قيادة تفاعلية بالكامل</li>
+                    <li><i class="fas fa-check-circle"></i> لوحة قيادة تفاعلية</li>
                     <li><i class="fas fa-check-circle"></i> دعم فني لمدة شهر</li>
                 </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact" style="display: block; background: var(--powerbi-yellow); color: #000;">ابدأ الآن</a>
+                <a href="https://wa.me/249116551636" class="btn-contact" style="background: var(--powerbi-yellow); color: #000;">ابدأ الآن</a>
+            </div>
+
+            <div class="card price-card">
+                <h3>الحلول المتقدمة</h3>
+                <div class="price-tag" style="font-size: 1.8rem; padding: 10px 0;">عند التواصل</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> System Design متكامل</li>
+                    <li><i class="fas fa-check-circle"></i> Marketing & Branding</li>
+                    <li><i class="fas fa-check-circle"></i> Market Analysis مفصل</li>
+                    <li><i class="fas fa-check-circle"></i> استشارات استراتيجية</li>
+                </ul>
+                <a href="https://wa.me/249116551636" class="btn-contact" style="background: transparent; border: 1px solid var(--primary-blue);">تواصل للاستفسار</a>
             </div>
         </div>
     </section>
