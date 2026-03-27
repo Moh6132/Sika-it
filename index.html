@@ -1,185 +1,233 @@
-<section class="section" id="pricing">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sika IT | ذكاء البيانات والتحليل</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* تنسيقات خاصة بقسم الأسعار لضمان ظهورها */
-        #pricing {
-            padding: 80px 8%;
-            background-color: #0f172a; /* لون الخلفية الداكن */
-            color: #f8fafc;
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary-blue: #3b82f6;
+            --powerbi-yellow: #F2C811;
+            --excel-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-line: rgba(51, 65, 85, 0.5);
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 2px 2px, var(--border-line) 1px, transparent 0);
+            background-size: 40px 40px;
         }
 
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #fff;
+        /* --- الهيدر --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-line);
+            padding: 15px 8%;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .section-title .line {
-            width: 80px;
-            height: 4px;
-            background: #F2C811; /* لون باور بي آي */
-            margin: auto;
-            border-radius: 2px;
-        }
-
-        .grid-pricing {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            align-items: stretch;
-        }
-
-        .price-box {
-            background: #1e293b;
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(51, 65, 85, 0.5);
-            text-align: center;
-            position: relative;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-box:hover {
-            transform: translateY(-10px);
-            border-color: #3b82f6;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .price-header h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .price {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 25px;
-            color: #fff;
-        }
-
-        .price span {
-            font-size: 1rem;
-            color: #94a3b8;
-        }
-
-        .price-features {
-            list-style: none;
-            padding: 0;
-            text-align: right;
-            margin-bottom: 30px;
-            flex-grow: 1;
-        }
-
-        .price-features li {
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .price-features li i {
-            color: #10b981; /* لون أخضر للصح */
-            font-size: 0.9rem;
-        }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--primary-blue); }
 
         .btn-contact {
-            background: #3b82f6;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
+            background: var(--primary-blue); color: white; padding: 10px 25px;
+            border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
             display: inline-block;
         }
+        .btn-contact:hover { background: var(--powerbi-yellow); color: #000; transform: translateY(-3px); }
+        .btn-contact.outline { background: transparent; border: 1px solid var(--primary-blue); }
 
-        .btn-contact.outline {
-            background: transparent;
-            border: 1px solid #3b82f6;
+        /* --- قسم الهيرو --- */
+        .hero { padding: 160px 8% 80px; text-align: center; max-width: 1000px; margin: auto; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; }
+        .hero h1 span { color: var(--powerbi-yellow); }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; }
+
+        /* --- الأقسام العامة --- */
+        .section { padding: 80px 8%; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.8rem; margin-bottom: 15px; }
+        .section-title .line { width: 80px; height: 4px; background: var(--powerbi-yellow); margin: auto; border-radius: 2px; }
+
+        /* --- شبكة الخدمات --- */
+        .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card {
+            background: var(--bg-card); padding: 40px; border-radius: 20px;
+            border: 1px solid var(--border-line); transition: 0.4s;
         }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary-blue); }
+        .card i { font-size: 2.5rem; color: var(--powerbi-yellow); margin-bottom: 20px; display: block; }
+        .card h3 { margin-bottom: 15px; font-size: 1.5rem; color: #fff; }
 
-        .btn-contact:hover {
-            background: #F2C811;
-            color: #000;
+        /* --- شبكة الأسعار --- */
+        .grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: stretch; }
+        .price-box {
+            background: var(--bg-card); padding: 40px 30px; border-radius: 20px;
+            border: 1px solid var(--border-line); text-align: center; position: relative;
+            transition: 0.4s; display: flex; flex-direction: column;
         }
-
-        /* تمييز الباقة الأكثر طلباً */
-        .price-box.featured {
-            border: 2px solid #3b82f6;
-            background: rgba(30, 41, 59, 0.9);
-            transform: scale(1.05);
-        }
-
+        .price-box.featured { border: 2.5px solid var(--primary-blue); transform: scale(1.05); z-index: 2; }
         .popular-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #3b82f6;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--primary-blue); color: #fff; padding: 4px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+        }
+        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; color: #fff; }
+        .price span { font-size: 1rem; color: var(--text-muted); }
+        .price-features { list-style: none; text-align: right; margin-bottom: 30px; flex-grow: 1; }
+        .price-features li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
+        .price-features li i { color: var(--excel-green); }
+
+        /* --- معرض الـ 3D السفلي --- */
+        .section-3d-final { padding: 100px 0; background: rgba(0,0,0,0.3); overflow: hidden; }
+        .scene { display: grid; place-content: center; perspective: 60em; height: 450px; width: 100%; }
+        .a3d { display: grid; transform-style: preserve-3d; animation: rotate3d 25s linear infinite; --n: 6; }
+        @keyframes rotate3d { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        
+        .card-3d {
+            grid-area: 1/1; width: 140px; height: 180px; 
+            background: linear-gradient(135deg, var(--primary-blue), #1e3a8a);
+            border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; color: white; box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+            transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(280px);
+            backface-visibility: hidden;
+        }
+
+        /* --- الفوتر والواتساب --- */
+        footer { padding: 50px; text-align: center; background: #020617; border-top: 1px solid var(--border-line); }
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; z-index: 2000; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .card-3d { width: 100px; height: 140px; transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(180px); }
+            .scene { height: 350px; }
         }
     </style>
+</head>
+<body>
 
-    <div class="section-title">
-        <h2>باقات تناسب نمو أعمالك</h2>
-        <div class="line"></div>
-    </div>
+    <header>
+        <a href="#" class="logo"><i class="fas fa-database"></i> SIKA <span>IT</span></a>
+        <a href="https://wa.me/249116551636" class="btn-contact">استشارة مجانية</a>
+    </header>
 
-    <div class="grid-pricing">
-        <div class="price-box">
-            <div class="price-header">
-                <h3>باقة Excel الاحترافية</h3>
+    <section class="hero">
+        <h1>بياناتك هي <span>بوصلة</span> نجاحك القادم.</h1>
+        <p>نحول الأرقام الصماء إلى رؤى ذكية تساعدك في اتخاذ أفضل القرارات لمشروعك.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="#services" class="btn-contact">خدماتنا</a>
+            <a href="#pricing" class="btn-contact outline">الباقات</a>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <div class="section-title">
+            <h2>ماذا نقدم لعملائنا؟</h2>
+            <div class="line"></div>
+        </div>
+        <div class="grid-services">
+            <div class="card">
+                <i class="fas fa-satellite-dish"></i>
+                <h3>جمع البيانات</h3>
+                <p>دقة عالية في جمع البيانات الميدانية والرقمية من كافة المصادر.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Power BI</h3>
+                <p>تصميم لوحات قيادة تفاعلية تراقب أداء عملك لحظة بلحظة.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-bullhorn"></i>
+                <h3>التسويق الرقمي</h3>
+                <p>حملات إعلانية ذكية مبنية على تحليل سلوك الجمهور الفعلي.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="pricing">
+        <div class="section-title">
+            <h2>باقات الأسعار</h2>
+            <div class="line"></div>
+        </div>
+        <div class="grid-pricing">
+            <div class="price-box">
+                <h3>باقة Excel</h3>
                 <div class="price">25k <span>SDG</span></div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> تنظيف ومعالجة البيانات</li>
+                    <li><i class="fas fa-check"></i> جداول Pivot Tables</li>
+                    <li><i class="fas fa-check"></i> تقارير PDF</li>
+                </ul>
+                <a href="https://wa.me/249116551636" class="btn-contact outline">اطلب الآن</a>
             </div>
-            <ul class="price-features">
-                <li><i class="fas fa-check"></i> تنظيف ومعالجة البيانات</li>
-                <li><i class="fas fa-check"></i> جداول محورية (Pivot Tables)</li>
-                <li><i class="fas fa-check"></i> رسوم بيانية وتقارير PDF</li>
-                <li><i class="fas fa-check"></i> أتمتة المهام المتكررة</li>
-            </ul>
-            <a href="https://wa.me/249116551636" class="btn-contact outline">اطلب الباقة</a>
-        </div>
-
-        <div class="price-box featured">
-            <div class="popular-badge">الأكثر طلباً</div>
-            <div class="price-header">
-                <h3>باقة Power BI الذكية</h3>
+            <div class="price-box featured">
+                <div class="popular-badge">الأكثر طلباً</div>
+                <h3>باقة Power BI</h3>
                 <div class="price">85k <span>SDG</span></div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> لوحة قيادة تفاعلية</li>
+                    <li><i class="fas fa-check"></i> ربط مصادر البيانات</li>
+                    <li><i class="fas fa-check"></i> دعم فني لمدة شهر</li>
+                </ul>
+                <a href="https://wa.me/249116551636" class="btn-contact">ابدأ الآن</a>
             </div>
-            <ul class="price-features">
-                <li><i class="fas fa-check"></i> بناء مستودع بيانات متكامل</li>
-                <li><i class="fas fa-check"></i> لوحات قيادة (Dashboards) تفاعلية</li>
-                <li><i class="fas fa-check"></i> ربط مصادر بيانات متعددة</li>
-                <li><i class="fas fa-check"></i> دعم فني وتحديثات لمدة شهر</li>
-            </ul>
-            <a href="https://wa.me/249116551636" class="btn-contact">ابدأ الآن</a>
+            <div class="price-box">
+                <h3>الحلول المتقدمة</h3>
+                <div class="price" style="font-size: 1.5rem;">عند التواصل</div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> System Design</li>
+                    <li><i class="fas fa-check"></i> Market Analysis</li>
+                    <li><i class="fas fa-check"></i> استشارات مخصصة</li>
+                </ul>
+                <a href="https://wa.me/249116551636" class="btn-contact outline">استفسر الآن</a>
+            </div>
         </div>
+    </section>
 
-        <div class="price-box advanced">
-            <div class="price-header">
-                <h3>الحلول المتقدمة والخاصة</h3>
-                <div class="price" style="font-size: 1.6rem; color: #F2C811;">عند التواصل</div>
-            </div>
-            <ul class="price-features">
-                <li><i class="fas fa-check"></i> تصميم أنظمة (System Design)</li>
-                <li><i class="fas fa-check"></i> حملات تسويقية (Marketing)</li>
-                <li><i class="fas fa-check"></i> تحليل سوق ومنافسين معمق</li>
-                <li><i class="fas fa-check"></i> استشارات تقنية واستراتيجية</li>
-            </ul>
-            <a href="https://wa.me/249116551636" class="btn-contact outline">تواصل للاستفسار</a>
+    <section class="section-3d-final">
+        <div class="section-title">
+            <h2>رؤيتنا التقنية</h2>
+            <p style="color: var(--text-muted)">عرض ثلاثي الأبعاد لبيئة عمل Sika IT</p>
         </div>
-    </div>
-</section>
+        <div class="scene">
+            <div class="a3d" style="--n: 6">
+                <div class="card-3d" style="--i: 0"><i class="fas fa-chart-line"></i></div>
+                <div class="card-3d" style="--i: 1"><i class="fas fa-microchip"></i></div>
+                <div class="card-3d" style="--i: 2"><i class="fas fa-database"></i></div>
+                <div class="card-3d" style="--i: 3"><i class="fas fa-network-wired"></i></div>
+                <div class="card-3d" style="--i: 4"><i class="fas fa-brain"></i></div>
+                <div class="card-3d" style="--i: 5"><i class="fas fa-laptop-code"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة <strong>SIKA IT</strong> &copy; 2026</p>
+    </footer>
+
+    <a href="https://wa.me/249116551636" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
