@@ -1,51 +1,185 @@
 <section class="section" id="pricing">
-        <div class="section-title">
-            <h2>باقات تناسب نمو أعمالك</h2>
-            <div class="line"></div>
-        </div>
-        
-        <div class="grid-pricing">
-            <div class="price-box">
-                <div class="price-header">
-                    <h3>باقة Excel الاحترافية</h3>
-                    <div class="price">25k <span>SDG</span></div>
-                </div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> تنظيف ومعالجة البيانات</li>
-                    <li><i class="fas fa-check"></i> جداول محورية (Pivot Tables)</li>
-                    <li><i class="fas fa-check"></i> رسوم بيانية وتقارير PDF</li>
-                    <li><i class="fas fa-check"></i> أتمتة المهام المتكررة</li>
-                </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact outline">اطلب الباقة</a>
-            </div>
+    <style>
+        /* تنسيقات خاصة بقسم الأسعار لضمان ظهورها */
+        #pricing {
+            padding: 80px 8%;
+            background-color: #0f172a; /* لون الخلفية الداكن */
+            color: #f8fafc;
+        }
 
-            <div class="price-box featured">
-                <div class="popular-badge">الأكثر طلباً</div>
-                <div class="price-header">
-                    <h3>باقة Power BI الذكية</h3>
-                    <div class="price">85k <span>SDG</span></div>
-                </div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> بناء مستودع بيانات متكامل</li>
-                    <li><i class="fas fa-check"></i> لوحات قيادة (Dashboards) تفاعلية</li>
-                    <li><i class="fas fa-check"></i> ربط مصادر بيانات متعددة</li>
-                    <li><i class="fas fa-check"></i> دعم فني وتحديثات لمدة شهر</li>
-                </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact">ابدأ الآن</a>
-            </div>
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-            <div class="price-box advanced">
-                <div class="price-header">
-                    <h3>الحلول المتقدمة والخاصة</h3>
-                    <div class="price" style="font-size: 1.6rem; color: var(--powerbi-yellow);">عند التواصل</div>
-                </div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> تصميم أنظمة (System Design)</li>
-                    <li><i class="fas fa-check"></i> حملات تسويقية (Marketing)</li>
-                    <li><i class="fas fa-check"></i> تحليل سوق ومنافسين معمق</li>
-                    <li><i class="fas fa-check"></i> استشارات تقنية واستراتيجية</li>
-                </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact outline">تواصل للاستفسار</a>
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .section-title .line {
+            width: 80px;
+            height: 4px;
+            background: #F2C811; /* لون باور بي آي */
+            margin: auto;
+            border-radius: 2px;
+        }
+
+        .grid-pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .price-box {
+            background: #1e293b;
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-box:hover {
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .price-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .price {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        .price-features {
+            list-style: none;
+            padding: 0;
+            text-align: right;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .price-features li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features li i {
+            color: #10b981; /* لون أخضر للصح */
+            font-size: 0.9rem;
+        }
+
+        .btn-contact {
+            background: #3b82f6;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-contact.outline {
+            background: transparent;
+            border: 1px solid #3b82f6;
+        }
+
+        .btn-contact:hover {
+            background: #F2C811;
+            color: #000;
+        }
+
+        /* تمييز الباقة الأكثر طلباً */
+        .price-box.featured {
+            border: 2px solid #3b82f6;
+            background: rgba(30, 41, 59, 0.9);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3b82f6;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="section-title">
+        <h2>باقات تناسب نمو أعمالك</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="grid-pricing">
+        <div class="price-box">
+            <div class="price-header">
+                <h3>باقة Excel الاحترافية</h3>
+                <div class="price">25k <span>SDG</span></div>
             </div>
+            <ul class="price-features">
+                <li><i class="fas fa-check"></i> تنظيف ومعالجة البيانات</li>
+                <li><i class="fas fa-check"></i> جداول محورية (Pivot Tables)</li>
+                <li><i class="fas fa-check"></i> رسوم بيانية وتقارير PDF</li>
+                <li><i class="fas fa-check"></i> أتمتة المهام المتكررة</li>
+            </ul>
+            <a href="https://wa.me/249116551636" class="btn-contact outline">اطلب الباقة</a>
         </div>
-    </section>
+
+        <div class="price-box featured">
+            <div class="popular-badge">الأكثر طلباً</div>
+            <div class="price-header">
+                <h3>باقة Power BI الذكية</h3>
+                <div class="price">85k <span>SDG</span></div>
+            </div>
+            <ul class="price-features">
+                <li><i class="fas fa-check"></i> بناء مستودع بيانات متكامل</li>
+                <li><i class="fas fa-check"></i> لوحات قيادة (Dashboards) تفاعلية</li>
+                <li><i class="fas fa-check"></i> ربط مصادر بيانات متعددة</li>
+                <li><i class="fas fa-check"></i> دعم فني وتحديثات لمدة شهر</li>
+            </ul>
+            <a href="https://wa.me/249116551636" class="btn-contact">ابدأ الآن</a>
+        </div>
+
+        <div class="price-box advanced">
+            <div class="price-header">
+                <h3>الحلول المتقدمة والخاصة</h3>
+                <div class="price" style="font-size: 1.6rem; color: #F2C811;">عند التواصل</div>
+            </div>
+            <ul class="price-features">
+                <li><i class="fas fa-check"></i> تصميم أنظمة (System Design)</li>
+                <li><i class="fas fa-check"></i> حملات تسويقية (Marketing)</li>
+                <li><i class="fas fa-check"></i> تحليل سوق ومنافسين معمق</li>
+                <li><i class="fas fa-check"></i> استشارات تقنية واستراتيجية</li>
+            </ul>
+            <a href="https://wa.me/249116551636" class="btn-contact outline">تواصل للاستفسار</a>
+        </div>
+    </div>
+</section>
