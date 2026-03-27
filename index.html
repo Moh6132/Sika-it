@@ -3,373 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sika IT | ذكاء البيانات والتحليل</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <title>Sika IT | رحلة تحويل البيانات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=DM+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
-            /* الهوية اللونية الفخمة */
-            --bg-dark: #080a10; /* أسود عميق جداً */
-            --bg-card: #11141d; /* كحلي غامق للبطاقات */
-            --primary-blue: #3b82f6; /* أزرق تقني مضيء */
-            --powerbi-yellow: #f59e0b; /* ذهبي دافئ للـ Power BI */
-            --excel-green: #10b981; /* أخضر زمردي للـ Excel */
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-line: rgba(255, 255, 255, 0.05);
-            --glass-bg: rgba(17, 20, 29, 0.8);
+            --bg: #05070a;
+            --card-bg: rgba(15, 18, 25, 0.8);
+            --primary: #3b82f6;
+            --accent: #f59e0b;
+            --text: #e2e8f0;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 2px 2px, var(--border-line) 1px, transparent 0);
-            background-size: 40px 40px;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); 
+            overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* --- الهيدر --- */
+        /* شريط تقدم القراءة (CodePen Trend) */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 2000; transition: width 0.1s;
+        }
+
         header {
-            background: rgba(8, 10, 16, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-line);
-            padding: 15px 8%;
-            position: fixed; top: 0; width: 100%; z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 20px 8%;
             display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(10px); z-index: 1000;
         }
 
-        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .logo span { color: var(--primary-blue); }
-        .logo i { color: var(--powerbi-yellow); }
+        .section { padding: 100px 8%; position: relative; }
+        .title-center { text-align: center; margin-bottom: 60px; }
+        .title-center h2 { font-size: 3rem; font-weight: 900; color: #fff; }
+        .title-center p { color: var(--primary); font-family: 'DM Mono'; letter-spacing: 2px; }
 
-        .btn-contact {
-            background: var(--primary-blue); color: white; padding: 10px 25px;
-            border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-            display: inline-block;
+        /* --- 1. قسم الإحصائيات (Counter Section) --- */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px; text-align: center; background: var(--glass); padding: 50px; border-radius: 30px;
         }
-        .btn-contact:hover { background: var(--powerbi-yellow); color: #000; transform: translateY(-3px); }
-        .btn-contact.outline { background: transparent; border: 1px solid var(--primary-blue); color: var(--primary-blue); }
+        .stat-item h3 { font-size: 3.5rem; color: var(--accent); display: block; }
+        .stat-item p { color: var(--text); font-weight: bold; }
 
-        /* --- قسم الهيرو --- */
-        .hero { 
-            padding: 180px 8% 100px;
-            display: flex; align-items: center; justify-content: space-between; 
-            gap: 50px; flex-wrap: wrap; max-width: 1400px; margin: auto;
+        /* --- 2. قسم "كيف نعمل" (The Process - Vertical Timeline) --- */
+        .timeline { position: relative; max-width: 800px; margin: auto; }
+        .timeline::before {
+            content: ''; position: absolute; top: 0; bottom: 0; width: 2px;
+            background: var(--primary); left: 50%; transform: translateX(-50%);
+        }
+        .step { margin-bottom: 50px; position: relative; width: 50%; padding: 20px 40px; }
+        .step:nth-child(odd) { left: 0; text-align: left; }
+        .step:nth-child(even) { left: 50%; text-align: right; }
+        .step-content { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--glass); }
+        .step-num { 
+            position: absolute; top: 20px; width: 40px; height: 40px; 
+            background: var(--accent); color: #000; border-radius: 50%; 
+            display: grid; place-items: center; font-weight: 900;
+        }
+        .step:nth-child(odd) .step-num { right: -20px; }
+        .step:nth-child(even) .step-num { left: -20px; }
+
+        /* --- 3. قسم الأسئلة الشائعة (Accordion) --- */
+        .faq-container { max-width: 800px; margin: auto; }
+        details { background: var(--card-bg); margin-bottom: 15px; border-radius: 10px; overflow: hidden; }
+        summary { padding: 20px; cursor: pointer; font-weight: bold; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; color: var(--primary); font-size: 1.5rem; }
+        details[open] summary::after { content: '-'; }
+        .faq-content { padding: 20px; border-top: 1px solid var(--glass); color: #94a3b8; }
+
+        /* --- 4. معرض الأعمال (Portfolio Tabs Style) --- */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .portfolio-item { 
+            height: 250px; background: #111; border-radius: 20px; position: relative; overflow: hidden; 
+            display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass);
+        }
+        .portfolio-item:hover .overlay { opacity: 1; }
+        .overlay { 
+            position: absolute; inset: 0; background: rgba(59, 130, 246, 0.9); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            opacity: 0; transition: 0.3s; padding: 20px; text-align: center;
         }
 
-        .hero-text { flex: 1; min-width: 320px; text-align: right; }
-        .hero-text h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; }
-        .hero-text h1 span { color: var(--powerbi-yellow); }
-        .hero-text p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; }
-
-        /* --- الأقسام والشبكات --- */
-        .section { padding: 100px 8%; max-width: 1400px; margin: auto; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.8rem; margin-bottom: 15px; color: #fff; }
-        .section-title .line { width: 80px; height: 4px; background: var(--powerbi-yellow); margin: auto; border-radius: 2px; }
-
-        .grid-services, .grid-pricing { 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-            align-items: stretch;
+        /* الكاروسيل الـ 3D (نفس التنسيق الفخم السابق) */
+        .scene-3d { perspective: 1000px; height: 500px; display: grid; place-items: center; }
+        .a3d-gallery { transform-style: preserve-3d; animation: rotate 20s linear infinite; display: grid; --n: 6; }
+        .card-3d-info { 
+            grid-area: 1/1; width: 300px; height: 400px; background: var(--card-bg); 
+            border: 1px solid var(--glass); border-radius: 20px; padding: 30px; 
+            transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(350px);
+            text-align: center; backdrop-filter: blur(10px);
         }
+        @keyframes rotate { from { transform: rotateY(0); } to { transform: rotateY(360deg); } }
 
-        /* --- تنسيق بطاقات الخدمات (ثابتة في الأعلى) --- */
-        .card {
-            background: var(--bg-card); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--border-line); transition: 0.4s;
-            text-align: center; display: flex; flex-direction: column;
-        }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary-blue); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
-        .card i { font-size: 2.5rem; color: var(--powerbi-yellow); margin-bottom: 20px; display: block; }
-        .card h3 { margin-bottom: 15px; font-size: 1.5rem; color: #fff; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; }
-
-        /* --- تنسيق بطاقات الأسعار --- */
-        .price-box {
-            background: var(--bg-card); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--border-line); text-align: center; position: relative;
-            display: flex; flex-direction: column; transition: 0.3s;
-        }
-        .price-box:hover { border-color: var(--primary-blue); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .price-box.featured { border: 2.5px solid var(--primary-blue); transform: scale(1.05); z-index: 2; background: rgba(17, 20, 29, 0.95); }
+        footer { padding: 40px; text-align: center; border-top: 1px solid var(--glass); margin-top: 50px; }
         
-        .popular-badge {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            background: var(--primary-blue); color: #fff; padding: 4px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-        }
-        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; color: #fff; }
-        .price span { font-size: 1rem; color: var(--text-muted); }
-        
-        .price-features { list-style: none; text-align: right; margin-bottom: 30px; flex-grow: 1; }
-        .price-features li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
-        .price-features li i { color: var(--excel-green); }
-
-        /* --- ======================================================== --- */
-        /* --- تنسيق الـ 3D Carousel المطور (أيقونات + وصف) في الأسفل --- */
-        /* --- ======================================================== --- */
-        .section-3d-gallery {
-            padding: 120px 0;
-            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
-            overflow: hidden;
-            border-top: 1px solid var(--border-line);
-        }
-
-        .scene-3d {
-            display: grid;
-            place-content: center;
-            perspective: 80em; /* عمق ثلاثي الأبعاد فخم */
-            height: 500px;
-            width: 100%;
-        }
-
-        .a3d-gallery {
-            display: grid;
-            transform-style: preserve-3d;
-            animation: rotateGallery 30s linear infinite; /* سرعة دوران سلسة */
-            --n: 6; /* عدد الخدمات */
-        }
-
-        /* توقف الدوران عند مرور الماوس للقراءة */
-        .a3d-gallery:hover { animation-play-state: paused; }
-
-        @keyframes rotateGallery {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        .card-3d-info {
-            grid-area: 1/1;
-            width: 22em; /* عرض البطاقة */
-            height: 28em; /* طول البطاقة */
-            background: var(--glass-bg);
-            border: 2px solid var(--border-line);
-            border-radius: 24px;
-            padding: 40px 30px;
-            text-align: center;
-            backface-visibility: hidden; /* إخفاء ظهر البطاقة */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
-            transition: 0.4s ease;
-            
-            /* التوزيع الدائري حول محور Y (الأSecret لمظهر الـ Carousel) */
-            /* --i هو الاندكس للبطاقة (0 إلى 5) */
-            transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(25em); 
-        }
-
-        /* تأثير التوهج عند التمرير فوق بطاقة الـ 3D */
-        .card-3d-info:hover {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-            transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(26em); /* نبض خفيف للخارج */
-        }
-
-        .card-3d-info i {
-            font-size: 3.5rem;
-            color: var(--powerbi-yellow); /* الأيقونات ذهبية فخمة */
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-        }
-
-        .card-3d-info h4 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .card-3d-info p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            font-family: 'DM Mono', monospace; /* لمسة برمجية للوصف */
-        }
-        
-        /* إضافة خط سفلي مضيء لكل بطاقة */
-        .card-3d-info::after {
-            content:''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 60%; height: 3px; background: var(--primary-blue); border-radius: 3px 3px 0 0;
-            box-shadow: 0 0 10px var(--primary-blue);
-        }
-
-        /* --- الفوتر والواتساب --- */
-        footer { padding: 50px; text-align: center; background: #020408; border-top: 1px solid var(--border-line); }
-        footer p { color: var(--text-muted); font-size: 0.9rem; }
-        footer strong { color: #fff; }
-
-        .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white;
-            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; z-index: 2000; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
-
-        /* --- التجاوب للموبايل --- */
         @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.5rem; }
-            .hero { padding-top: 150px; text-align: center; }
-            
-            /* ضبط الـ 3D Carousel للموبايل */
-            .card-3d-info { 
-                width: 16em; height: 22em; 
-                padding: 25px;
-                transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(15em); 
-            }
-            .card-3d-info i { font-size: 2.5rem; }
-            .card-3d-info h4 { font-size: 1.2rem; }
-            .card-3d-info p { font-size: 0.8rem; }
-            .scene-3d { height: 400px; perspective: 40em; }
+            .timeline::before { left: 20px; }
+            .step { width: 100%; padding-left: 50px; text-align: right !important; }
+            .step:nth-child(even) { left: 0; }
+            .step-num { left: 0 !important; }
         }
     </style>
 </head>
 <body>
 
+    <div id="scroll-progress"></div>
+
     <header>
-        <a href="#" class="logo"><i class="fas fa-database"></i> SIKA <span>IT</span></a>
-        <a href="https://wa.me/249116551636" class="btn-contact">استشارة مجانية</a>
+        <div style="font-size: 1.5rem; font-weight: 900;">SIKA <span style="color:var(--primary)">IT</span></div>
+        <a href="https://wa.me/249116551636" style="background:var(--primary); padding:10px 20px; border-radius:50px; color:#fff; text-decoration:none;">ابدأ مشروعك</a>
     </header>
 
-    <section class="hero">
-        <div class="hero-text">
-            <h1>بياناتك هي <span>بوصلة</span> نجاحك القادم.</h1>
-            <p>نحول الأرقام الصماء إلى رؤى ذكية تساعدك في اتخاذ أفضل القرارات لمشروعك، عبر تصميم أنظمة وجمع وتحليل البيانات بذكاء.</p>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <a href="#services" class="btn-contact">اكتشف خدماتنا</a>
-                <a href="#pricing" class="btn-contact outline">الباقات</a>
+    <section class="section" style="margin-top: 80px;">
+        <div class="stats-grid">
+            <div class="stat-item"><h3>+500</h3><p>ملف بيانات تم تحليله</p></div>
+            <div class="stat-item"><h3>100%</h3><p>دقة وموثوقية</p></div>
+            <div class="stat-item"><h3>+120</h3><p>عميل سعيد</p></div>
+            <div class="stat-item"><h3>24/7</h3><p>دعم تقني مستمر</p></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="title-center">
+            <p>WORKFLOW</p>
+            <h2>كيف نحقق نجاحك؟</h2>
+        </div>
+        <div class="timeline">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>الاستشارة الرقمية</h4>
+                    <p>نجلس معك لنفهم أهدافك والتحديات التي تواجهك في بياناتك.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>جمع المصادر</h4>
+                    <p>نربط قواعد البيانات، ملفات الإكسل، أو التقارير الورقية بنظام واحد.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>المعالجة والذكاء</h4>
+                    <p>نقوم بتنظيف البيانات وتحويلها إلى أرقام ذات معنى باستخدام خوارزمياتنا.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>لوحة التحكم</h4>
+                    <p>نصمم لك واجهة Power BI تفاعلية تعرض لك الحقيقة بضغطة زر.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section" id="services">
-        <div class="section-title">
-            <h2>خدماتنا المتكاملة</h2>
-            <div class="line"></div>
+    <section class="section">
+        <div class="title-center">
+            <p>SHOWCASE</p>
+            <h2>مشاريع نفخر بها</h2>
         </div>
-        <div class="grid-services">
-            <div class="card">
-                <i class="fas fa-satellite-dish"></i>
-                <h3>جمع البيانات عن بُعد</h3>
-                <p>نجمع البيانات الميدانية والرقمية بدقة عالية من مختلف المصادر بدقة متناهية.</p>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <i class="fas fa-chart-line fa-3x" style="color:#222"></i>
+                <div class="overlay">
+                    <h4>تحليل مبيعات عقاري</h4>
+                    <p>نظام تتبع مبيعات لأكثر من 10 فروع لحظياً.</p>
+                </div>
             </div>
-            <div class="card">
-                <i class="fas fa-microchip"></i>
-                <h3>التحليل الإحصائي</h3>
-                <p>تنظيف ومعالجة البيانات المعقدة لاستخراج الأنماط والاتجاهات الذكية.</p>
+            <div class="portfolio-item">
+                <i class="fas fa-users-gear fa-3x" style="color:#222"></i>
+                <div class="overlay">
+                    <h4>داشبورد موارد بشرية</h4>
+                    <p>تتبع أداء الموظفين والرواتب بدقة 100%.</p>
+                </div>
             </div>
-            <div class="card">
-                <i class="fas fa-project-diagram"></i>
-                <h3>لوحات Power BI</h3>
-                <p>تقارير ديناميكية تراقب أداء عملك لحظة بلحظة ومن أي مكان.</p>
+            <div class="portfolio-item">
+                <i class="fas fa-boxes-stacked fa-3x" style="color:#222"></i>
+                <div class="overlay">
+                    <h4>إدارة المخزون الذكي</h4>
+                    <p>تنبؤ آلي بموعد نفاد الكميات وتنبيهات الشراء.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section" id="pricing">
-        <div class="section-title">
-            <h2>باقات الأسعار</h2>
-            <div class="line"></div>
-        </div>
-        <div class="grid-pricing">
-            <div class="price-box">
-                <div class="price-header">
-                    <h3>باقة Excel</h3>
-                    <div class="price">25k <span>SDG</span></div>
-                </div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> تنظيف البيانات المتقدم</li>
-                    <li><i class="fas fa-check"></i> Pivot Tables</li>
-                    <li><i class="fas fa-check"></i> تقارير PDF</li>
-                </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact outline">اطلب الآن</a>
-            </div>
-            <div class="price-box featured">
-                <div class="popular-badge">الأكثر طلباً</div>
-                <div class="price-header">
-                    <h3 style="color: var(--powerbi-yellow);">باقة Power BI</h3>
-                    <div class="price">85k <span>SDG</span></div>
-                </div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> لوحة قيادة تفاعلية</li>
-                    <li><i class="fas fa-check"></i> ربط مصادر البيانات</li>
-                    <li><i class="fas fa-check"></i> دعم فني لمدة شهر</li>
-                </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact" style="background: var(--powerbi-yellow); color: #000;">ابدأ الآن</a>
-            </div>
-            <div class="price-box">
-                <div class="price-header">
-                    <h3>الحلول المتقدمة</h3>
-                    <div class="price" style="font-size: 1.5rem; color: var(--powerbi-yellow);">عند التواصل</div>
-                </div>
-                <ul class="price-features">
-                    <li><i class="fas fa-check"></i> System Design</li>
-                    <li><i class="fas fa-check"></i> Market Analysis</li>
-                    <li><i class="fas fa-check"></i> استشارات مخصصة</li>
-                </ul>
-                <a href="https://wa.me/249116551636" class="btn-contact outline">تواصل للاستفسار</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-3d-gallery">
-        <div class="section-title">
-            <h2>رؤية شاملة لخبراتنا</h2>
-            <p style="color: var(--text-muted)">حرك الماوس فوق البطاقة للتوقف والقراءة</p>
+    <section class="section">
+        <div class="title-center">
+            <p>SERVICES</p>
+            <h2>عالم من الإمكانيات</h2>
         </div>
         <div class="scene-3d">
             <div class="a3d-gallery" style="--n: 6">
-                <div class="card-3d-info" style="--i: 0">
-                    <i class="fas fa-satellite-dish"></i>
-                    <h4>جمع البيانات</h4>
-                    <p>// دقة عالية في جميع وتحصيل البيانات الميدانية والرقمية من كافة المصادر المتاحة.</p>
-                </div>
-                <div class="card-3d-info" style="--i: 1">
-                    <i class="fas fa-microchip"></i>
-                    <h4>التحليل الإحصائي</h4>
-                    <p>// معالجة البيانات المعقدة لاستخراج أنماط ذكية تدعم قراراتك الاستراتيجية.</p>
-                </div>
-                <div class="card-3d-info" style="--i: 2">
-                    <i class="fas fa-chart-pie"></i>
-                    <h4>Power BI</h4>
-                    <p>// تحويل الأرقام الصماء إلى تقارير تفاعلية وديناميكية تراقب أداء عملك لحظة بلحظة.</p>
-                </div>
-                <div class="card-3d-info" style="--i: 3">
-                    <i class="fas fa-bullhorn"></i>
-                    <h4>التسويق الرقمي</h4>
-                    <p>// استراتيجيات تسويقية ذكية تعتمد على تحليل البيانات للوصول الدقيق لجمهورك المستهدف.</p>
-                </div>
-                <div class="card-3d-info" style="--i: 4">
-                    <i class="fas fa-magnifying-glass-chart"></i>
-                    <h4>تحليل السوق</h4>
-                    <p>// دراسة معمقة للمنافسين والاتجاهات الحالية لمساعدتك في اتخاذ قرارات توسع مدروسة.</p>
-                </div>
-                <div class="card-3d-info" style="--i: 5">
-                    <i class="fas fa-brain"></i>
-                    <h4>System Design</h4>
-                    <p>// تصميم بنية تحتية تقنية متكاملة تضمن انسيابية وكفاءة تدفق البيانات داخل مؤسستك.</p>
-                </div>
+                <div class="card-3d-info" style="--i: 0"><i class="fas fa-database fa-2x"></i><h4>تحليل البيانات</h4><p>استخراج الرؤى العميقة.</p></div>
+                <div class="card-3d-info" style="--i: 1"><i class="fas fa-table fa-2x"></i><h4>إكسل متقدم</h4><p>أتمتة المهام المكتبية.</p></div>
+                <div class="card-3d-info" style="--i: 2"><i class="fas fa-bolt fa-2x"></i><h4>Power BI</h4><p>تقارير حية وتفاعلية.</p></div>
+                <div class="card-3d-info" style="--i: 3"><i class="fas fa-code fa-2x"></i><h4>نظام مخصص</h4><p>برمجيات حسب طلبك.</p></div>
+                <div class="card-3d-info" style="--i: 4"><i class="fas fa-magnifying-glass fa-2x"></i><h4>دراسة سوق</h4><p>حلل منافسيك بذكاء.</p></div>
+                <div class="card-3d-info" style="--i: 5"><i class="fas fa-mobile-screen fa-2x"></i><h4>واجهات UX</h4><p>سهولة الاستخدام أولاً.</p></div>
             </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="title-center"><h2>أسئلة تهمك</h2></div>
+        <div class="faq-container">
+            <details>
+                <summary>هل يمكنني ربط إكسل بـ Power BI؟</summary>
+                <div class="faq-content">نعم، نقوم بربط ملفاتك بحيث يتم تحديث التقارير تلقائياً بمجرد إدخال بيانات جديدة في الإكسل.</div>
+            </details>
+            <details>
+                <summary>ما هي مدة تنفيذ لوحة التحكم؟</summary>
+                <div class="faq-content">تعتمد على حجم البيانات، ولكن في المتوسط يستغرق العمل من 3 إلى 7 أيام عمل.</div>
+            </details>
+            <details>
+                <summary>كيف يتم تسليم العمل؟</summary>
+                <div class="faq-content">نسلمك ملفات العمل مع رابط مباشر للوصول للتقرير من أي مكان، بالإضافة لجلسة تدريبية مجانية.</div>
+            </details>
         </div>
     </section>
 
     <footer>
-        <p>جميع الحقوق محفوظة لشركة <strong>SIKA IT</strong> &copy; 2026</p>
+        <p>SIKA IT &copy; 2026 | بياناتك.. قوتك الحقيقية</p>
     </footer>
 
-    <a href="https://wa.me/249116551636" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
+    <script>
+        // تحديث شريط تقدم السكرول
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+    </script>
 </body>
 </html>
