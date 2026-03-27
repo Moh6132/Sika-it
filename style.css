@@ -3,156 +3,110 @@
     --bg-card: #1e293b;
     --primary-blue: #3b82f6;
     --powerbi-yellow: #F2C811;
-    --excel-green: #10b981;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --border-line: rgba(51, 65, 85, 0.5);
-    --glass-bg: rgba(30, 41, 59, 0.7);
 }
 
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-    scroll-behavior: smooth; 
-}
+* { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 
 body {
     font-family: 'Cairo', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    line-height: 1.6;
     overflow-x: hidden;
-    background-image: radial-gradient(circle at 2px 2px, var(--border-line) 1px, transparent 0);
-    background-size: 40px 40px;
 }
 
-/* --- الهيدر (Header) --- */
 header {
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-line);
+    background: rgba(15, 23, 42, 0.95);
     padding: 15px 8%;
-    position: fixed; 
-    top: 0; 
-    width: 100%; 
-    z-index: 1000;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border-line);
 }
 
-.logo { 
-    font-size: 1.8rem; 
-    font-weight: 900; 
-    color: #fff; 
-    text-decoration: none; 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-}
+.logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; }
 .logo span { color: var(--primary-blue); }
 
 .btn-contact {
-    background: var(--primary-blue); 
-    color: white; 
-    padding: 10px 25px;
-    border-radius: 50px; 
-    text-decoration: none; 
-    font-weight: 700; 
-    transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    display: inline-block;
+    background: var(--primary-blue); color: #fff; padding: 10px 25px;
+    border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s;
+}
+.btn-contact.outline { background: transparent; border: 1px solid var(--primary-blue); }
+
+/* قسم الهيرو */
+.hero { padding: 150px 8% 80px; text-align: center; }
+.hero h1 { font-size: 3rem; margin-bottom: 20px; }
+.hero h1 span { color: var(--powerbi-yellow); }
+
+/* تنسيق الشبكة العادية للخدمات */
+.section { padding: 80px 8%; }
+.section-title { text-align: center; margin-bottom: 50px; }
+.section-title .line { width: 60px; height: 4px; background: var(--powerbi-yellow); margin: 10px auto; }
+
+.grid-services, .grid-pricing {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
 }
 
-/* --- إعدادات الـ 3D Carousel --- */
-.services-3d-container {
+.card, .price-box {
+    background: var(--bg-card); padding: 30px; border-radius: 15px;
+    border: 1px solid var(--border-line); transition: 0.3s;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--primary-blue); }
+.card i { font-size: 2.5rem; color: var(--powerbi-yellow); margin-bottom: 15px; }
+
+/* تنسيق الـ 3D في الأسفل */
+.section-3d-final {
     padding: 100px 0;
-    perspective: 60em; 
+    background: rgba(0,0,0,0.2);
     overflow: hidden;
-    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
 }
 
 .scene {
     display: grid;
     place-content: center;
-    height: 550px;
-    width: 100%;
+    perspective: 50em; /* عمق الـ 3D */
+    height: 400px;
 }
 
 .a3d {
     display: grid;
     transform-style: preserve-3d;
-    animation: ry 30s linear infinite; 
+    animation: rotate3d 20s linear infinite; /* التحرك التلقائي */
 }
 
-.a3d:hover { animation-play-state: paused; }
-
-@keyframes ry { 
-    to { transform: rotateY(1turn); } 
+@keyframes rotate3d {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
 }
 
 .card-3d {
-    --w: 18em;
-    --ba: calc(1turn / var(--n));
-    grid-area: 1 / 1;
-    width: var(--w);
-    height: 26em;
-    background: var(--bg-card);
-    border: 1px solid var(--border-line);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    backface-visibility: hidden;
+    grid-area: 1/1;
+    width: 120px;
+    height: 160px;
+    background: var(--primary-blue);
+    border-radius: 15px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    transform: rotateY(calc(var(--i) * var(--ba))) translateZ(22em);
-    transition: 0.3s;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    /* التوزيع الدائري للصور/الكروت */
+    transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(250px);
 }
 
-.card-3d:hover {
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+.whatsapp-btn {
+    position: fixed; bottom: 20px; right: 20px;
+    background: #25d366; color: white; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; z-index: 2000;
 }
 
-.card-3d i { font-size: 3rem; color: var(--powerbi-yellow); margin-bottom: 20px; }
-.card-3d h3 { color: #fff; margin-bottom: 15px; font-size: 1.5rem; }
-.card-3d p { font-size: 0.95rem; color: var(--text-muted); }
+footer { text-align: center; padding: 40px; background: #020617; border-top: 1px solid var(--border-line); }
 
-/* --- الأقسام والأسعار --- */
-.section-title { text-align: center; margin-bottom: 40px; padding-top: 80px; }
-.section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
-.section-title .line { width: 80px; height: 4px; background: var(--powerbi-yellow); margin: auto; border-radius: 2px; }
-
-.pricing-section { padding: 80px 8%; max-width: 1300px; margin: auto; }
-.grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-.price-card { 
-    background: var(--bg-card); 
-    padding: 40px; 
-    border-radius: 20px; 
-    border: 1px solid var(--border-line); 
-    text-align: center; 
-    transition: 0.3s;
-}
-.price-card.featured { 
-    border-color: var(--primary-blue); 
-    transform: scale(1.05); 
-    background: rgba(30, 41, 59, 0.9);
-}
-
-.price-tag { font-size: 2.5rem; font-weight: 800; margin: 20px 0; }
-
-footer { padding: 40px; text-align: center; border-top: 1px solid var(--border-line); background: #020617; }
-
-/* التجاوب للموبايل */
 @media (max-width: 768px) {
-    .card-3d { 
-        --w: 14em; 
-        transform: rotateY(calc(var(--i) * var(--ba))) translateZ(14em); 
-    }
-    .scene { height: 450px; }
+    .card-3d { width: 80px; height: 110px; transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(150px); }
 }
