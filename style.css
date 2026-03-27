@@ -1,97 +1,158 @@
-
-/* إعدادات الخطوط والألوان الأساسية */
 :root {
-    --bg-dark: #020617;        /* أسود عميق جداً */
-    --bg-card: #0f172a;        /* كحلي غامق للبطاقات */
-    --primary-blue: #3b82f6;   /* أزرق تقني */
-    --powerbi-yellow: #f2c811; /* أصفر باور بي آي */
-    --excel-green: #10b981;    /* أخضر إكسل */
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --primary-blue: #3b82f6;
+    --powerbi-yellow: #F2C811;
+    --excel-green: #10b981;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    --border-line: rgba(255, 255, 255, 0.05);
+    --border-line: rgba(51, 65, 85, 0.5);
+    --glass-bg: rgba(30, 41, 59, 0.7);
 }
 
-/* تحسين الخلفية العامة للموقع */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    scroll-behavior: smooth; 
+}
+
 body {
+    font-family: 'Cairo', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    line-height: 1.8;
-    /* إضافة لمسة تقنية (نقاط هندسية) في الخلفية */
-    background-image: radial-gradient(var(--border-line) 2px, transparent 0);
-    background-size: 30px 30px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle at 2px 2px, var(--border-line) 1px, transparent 0);
+    background-size: 40px 40px;
 }
 
-/* تأثير الزجاج (Glassmorphism) للهيدر والبطاقات */
-.glass-effect {
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* --- الهيدر (Header) --- */
+header {
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-line);
+    padding: 15px 8%;
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
 }
 
-/* تحسين أزرار التواصل */
-.btn-action {
-    background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
-    color: white;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: 700;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.logo { 
+    font-size: 1.8rem; 
+    font-weight: 900; 
+    color: #fff; 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+.logo span { color: var(--primary-blue); }
+
+.btn-contact {
+    background: var(--primary-blue); 
+    color: white; 
+    padding: 10px 25px;
+    border-radius: 50px; 
+    text-decoration: none; 
+    font-weight: 700; 
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     display: inline-block;
-    border: none;
-    box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
 }
 
-.btn-action:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.7);
-    color: #fff;
+/* --- إعدادات الـ 3D Carousel --- */
+.services-3d-container {
+    padding: 100px 0;
+    perspective: 60em; 
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
 }
 
-/* تصميم بطاقات الخدمات الاحترافية */
-.service-card {
+.scene {
+    display: grid;
+    place-content: center;
+    height: 550px;
+    width: 100%;
+}
+
+.a3d {
+    display: grid;
+    transform-style: preserve-3d;
+    animation: ry 30s linear infinite; 
+}
+
+.a3d:hover { animation-play-state: paused; }
+
+@keyframes ry { 
+    to { transform: rotateY(1turn); } 
+}
+
+.card-3d {
+    --w: 18em;
+    --ba: calc(1turn / var(--n));
+    grid-area: 1 / 1;
+    width: var(--w);
+    height: 26em;
     background: var(--bg-card);
     border: 1px solid var(--border-line);
-    padding: 35px;
     border-radius: 20px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    padding: 30px;
+    text-align: center;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    transform: rotateY(calc(var(--i) * var(--ba))) translateZ(22em);
+    transition: 0.3s;
 }
 
-.service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0; width: 100%; height: 4px;
-    background: var(--primary-blue);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.service-card:hover {
+.card-3d:hover {
     border-color: var(--primary-blue);
-    background: #1e293b;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
 }
 
-.service-card:hover::after {
-    transform: scaleX(1);
+.card-3d i { font-size: 3rem; color: var(--powerbi-yellow); margin-bottom: 20px; }
+.card-3d h3 { color: #fff; margin-bottom: 15px; font-size: 1.5rem; }
+.card-3d p { font-size: 0.95rem; color: var(--text-muted); }
+
+/* --- الأقسام والأسعار --- */
+.section-title { text-align: center; margin-bottom: 40px; padding-top: 80px; }
+.section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
+.section-title .line { width: 80px; height: 4px; background: var(--powerbi-yellow); margin: auto; border-radius: 2px; }
+
+.pricing-section { padding: 80px 8%; max-width: 1300px; margin: auto; }
+.grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+.price-card { 
+    background: var(--bg-card); 
+    padding: 40px; 
+    border-radius: 20px; 
+    border: 1px solid var(--border-line); 
+    text-align: center; 
+    transition: 0.3s;
+}
+.price-card.featured { 
+    border-color: var(--primary-blue); 
+    transform: scale(1.05); 
+    background: rgba(30, 41, 59, 0.9);
 }
 
-/* تأثير الأنيميشن للأعمدة (Charts) */
-@keyframes growBar {
-    from { height: 0; }
-    to { height: var(--target-height); }
-}
+.price-tag { font-size: 2.5rem; font-weight: 800; margin: 20px 0; }
 
-.bar-item {
-    width: 20px;
-    background: var(--powerbi-yellow);
-    border-radius: 4px 4px 0 0;
-    animation: growBar 2s forwards ease-out;
-}
+footer { padding: 40px; text-align: center; border-top: 1px solid var(--border-line); background: #020617; }
 
-/* تحسين الخطوط والتنسيق للأجهزة المحمولة */
+/* التجاوب للموبايل */
 @media (max-width: 768px) {
-    .hero-title { font-size: 2.2rem !important; }
-    .hero-desc { font-size: 1rem !important; }
+    .card-3d { 
+        --w: 14em; 
+        transform: rotateY(calc(var(--i) * var(--ba))) translateZ(14em); 
+    }
+    .scene { height: 450px; }
 }
