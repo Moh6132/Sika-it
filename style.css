@@ -65,3 +65,29 @@ h2 { font-family: var(--font-display); font-size: 4rem; line-height: 0.9; margin
 .a3d { transform-style: preserve-3d; animation: rot 20s linear infinite; }
 @keyframes rot { from { transform: rotateY(0); } to { transform: rotateY(360deg); } }
 .card-3d { position: absolute; width: 100px; height: 130px; background: var(--primary-blue); transform: rotateY(calc(var(--i) * 60deg)) translateZ(200px); display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; border-radius:10px; }
+let activeIndex = 0;
+const cards = document.querySelectorAll('.card-container');
+
+function updateCarousel() {
+    cards.forEach((card, i) => {
+        const offset = i - activeIndex;
+        card.style.setProperty('--offset', offset);
+        card.style.setProperty('--abs-offset', Math.abs(offset));
+        card.style.setProperty('--direction', offset > 0 ? 1 : offset < 0 ? -1 : 0);
+        card.style.setProperty('--active', i === activeIndex ? 1 : 0);
+    });
+}
+
+function moveLeft() {
+    if (activeIndex > 0) {
+        activeIndex--;
+        updateCarousel();
+    }
+}
+
+function moveRight() {
+    if (activeIndex < cards.length - 1) {
+        activeIndex++;
+        updateCarousel();
+    }
+}
